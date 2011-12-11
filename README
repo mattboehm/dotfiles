@@ -1,3 +1,8 @@
 These are my config files. For now, it's primarily my .vimrc and plugins, but I'll probably incorporate more soon.
 
 I'll try to add an installation script soon as well.
+
+Vim notes:
+
+* I use pathogen to manage vim plugins, so most plugins are subrepositories within .vim/bundle/
+* Most of my mappings are in my .vimrc, but .vim/bundle/mbpython/ftplugin/python.vim has a few python-specific insert-mode mappings (like ; to _)
