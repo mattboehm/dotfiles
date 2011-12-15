@@ -13,3 +13,12 @@
 [submodule ".vim/bundle/nerdcommenter"]
 	path = .vim/bundle/nerdcommenter
 	url = git://github.com/scrooloose/nerdcommenter.git
+[submodule ".vim/bundle/rainbowparen"]
+	path = .vim/bundle/rainbowparen
+	url = git://github.com/kien/rainbow_parentheses.vim.git
+[submodule ".vim/bundle/pylint"]
+	path = .vim/bundle/pylint
+	url = git://github.com/vim-scripts/pylint.vim.git
+[submodule ".vim/bundle/togglelist"]
+	path = .vim/bundle/togglelist
+	url = git://github.com/milkypostman/vim-togglelist.git
