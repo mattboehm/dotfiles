@@ -48,6 +48,12 @@ nnoremap ,R :RainbowParenthesesToggle<CR>
 "clear highlight search
 nmap <silent> <leader><space> :nohlsearch<CR>
 
+"swap highlighted text with last deleted text
+vnoremap <C-X> <Esc>`.``gvP``P
+
+"gp selects code that was just pasted in the visual mode last used
+nnoremap <expr> gp  '`[' . strpart(getregtype(), 0, 1) . '`]'
+
 "open vimrc in new tab
 nnoremap ,ve :tab sp ~/.vimrc<CR>
 "reload vimrc
@@ -91,6 +97,14 @@ let g:pylint_inline_highlight = 0
 let g:pylint_signs = 0
 let g:pylint_onwrite = 0
 
+"Fugitive mappings
+
+nnoremap ,gs :Gstatus<CR>
+nnoremap ,gd :Gdiff<CR>
+nnoremap ,gw :Gwrite<CR>
+nnoremap ,gr :Gread<CR>
+
+nnoremap ,a :Ack 
 
 "256 color terminal
 set t_Co=256
@@ -101,6 +115,16 @@ if has("gui_running")
 else
   colorscheme wombat256
 endif
+
+"ctrlp settings
+let g:ctrlp_map = ',f'
+let g:ctrlp_working_path_mode = 2
+let g:ctrlp_extensions = ['dir']
+let g:ctrlp_custom_ignore = {
+\ 'dir':  'public/js/lib$',
+\ 'file': '\.exe$\|\.so$\|\.dll$|\.swp$|\.swo$|\.pyc$|\.orig$',
+\ 'link': 'some_bad_symbolic_links',
+\ }
 
 "DiffOrig opens a diff between the current buffer and the saved version
 command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
