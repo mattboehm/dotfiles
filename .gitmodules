@@ -22,3 +22,9 @@
 [submodule ".vim/bundle/togglelist"]
 	path = .vim/bundle/togglelist
 	url = git://github.com/milkypostman/vim-togglelist.git
+[submodule ".vim/bundle/fugitive"]
+	path = .vim/bundle/fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+[submodule "zsh/oh-my-zsh"]
+	path = zsh/oh-my-zsh
+	url = https://github.com/robbyrussell/oh-my-zsh.git
