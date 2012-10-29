@@ -1,6 +1,8 @@
 runtime bundle/pathogen/autoload/pathogen.vim
 call pathogen#infect()
 
+let mapleader=","
+let localleader="\\"
 "show line numbers
 set number 
 
