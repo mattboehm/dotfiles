@@ -207,4 +207,5 @@ let g:pylint_onwrite = 0
         let Tlist_Max_Tag_Length = 10
 "}}}
 "}}}
- vim:foldlevel=marker
+
+" vim:foldlevel=marker

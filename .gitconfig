@@ -1,0 +1,26 @@
+[user]
+        email = boehm.matthew@gmail.com
+        name = Matthew Boehm
+[github]
+        user = mattboehm
+[alias]
+        st = status
+        cm = commit
+        in = fetch --dry-run
+        co = checkout
+        br = branch
+        cb = !git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \\(.*\\)/\\1/'
+        pl = pull
+        ps = push
+        d = diff
+        dc = diff --cached
+        r = remote
+        changes = log --pretty=format:\"%h %cr %Cblue%cn%Creset %Cgreen%s%Creset\" --name-status
+        ch = log --pretty=format:\"%h %cr %Cblue%cn%Creset %Cgreen%s%Creset\" --name-status
+        bin = !git ch --cherry `git cb`...master
+        bout = !git ch --cherry master...`git cb`
+        short = log --pretty=format:\"%h %cr %Cblue%cn%Creset %Cgreen%s%Creset\"
+        sh = log --pretty=format:\"%h %cr %Cblue%cn%Creset %Cgreen%s%Creset\"
+
+[color]
+        ui = auto
