@@ -31,3 +31,9 @@
 [submodule ".vim/bundle/powerline"]
 	path = .vim/bundle/powerline
 	url = git://github.com/Lokaltog/vim-powerline.git
+[submodule ".vim/bundle/inkpot"]
+	path = .vim/bundle/inkpot
+	url = git://github.com/ciaranm/inkpot.git
+[submodule ".vim/bundle/wombat256"]
+	path = .vim/bundle/wombat256
+	url = git://github.com/vim-scripts/wombat256.vim.git
