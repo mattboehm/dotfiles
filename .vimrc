@@ -1,5 +1,7 @@
+"load plugins{{{
 runtime bundle/pathogen/autoload/pathogen.vim
 call pathogen#infect()
+"}}}
 
 "Settings {{{
 set number 
@@ -18,6 +20,27 @@ else
 endif
 let mapleader=","
 let localleader="\\"
+
+" Backups {{{
+" (thanks Steve Losh)
+set backup
+set noswapfile
+
+set undodir=~/.vim/tmp/undo//
+set backupdir=~/.vim/tmp/backup//
+set directory=~/.vim/tmp/swap//
+
+" Make those folders automatically if they don't already exist.
+if !isdirectory(expand(&undodir))
+    call mkdir(expand(&undodir), "p")
+endif
+if !isdirectory(expand(&backupdir))
+    call mkdir(expand(&backupdir), "p")
+endif
+if !isdirectory(expand(&directory))
+    call mkdir(expand(&directory), "p")
+endif
+"}}}
 "}}}
 
 "Key mapping {{{
@@ -50,6 +73,10 @@ vnoremap <C-X> <Esc>`.``gvP``P
 "gp selects code that was just pasted in the visual mode last used
 nnoremap <expr> gp  '`[' . strpart(getregtype(), 0, 1) . '`]'
 
+"z-Up/Down goes to top/bottom of current fold
+nnoremap z<Up> [z
+nnoremap z<Down> ]z
+
 "Tabs and Splits {{{
 "when opening files in splits/tabs, I first split the current buffer into a
 "new vsplit/tab and then open the new file with whatever method suits me.
@@ -58,8 +85,8 @@ nnoremap <expr> gp  '`[' . strpart(getregtype(), 0, 1) . '`]'
 "I remember this because shift-\ is | which looks like a vertical split.
 nnoremap <C-\> :vsp<CR>
 "tab handling
-nnoremap ,t :tab sp<CR>
-nnoremap ,w :tabc<CR>
+nnoremap <leader>t :tab sp<CR>
+nnoremap <leader>w :tabc<CR>
 
 "Ctrl-Shift-ArrowKeys = resize active split
 nnoremap <C-S-Left> <C-W><lt>
@@ -73,33 +100,36 @@ nnoremap <C-Right> <C-W><right>
 nnoremap <C-Up> <C-W><up>
 nnoremap <C-Down> <C-W><down>
 "}}}
-"
+
 "ctrl-j/k to jump between 'compiler' messages
 nnoremap <silent> <C-j> :cn<CR>
 nnoremap <silent> <C-k> :cp<CR>
 
 "open vimrc in new tab
-nnoremap ,ve :tab sp ~/.vimrc<CR>
+nnoremap <leader>ve :tab sp ~/.vimrc<CR>
 "reload vimrc
-nnoremap ,vs :source ~/.vimrc<CR>
+nnoremap <leader>vs :source ~/.vimrc<CR>
 
 "F2 toggles line numbers
 nnoremap <silent> <F2> :set nonumber!<CR>
 
-"Some plugin mappings {{{
-nnoremap <silent> ,p :Pylint<CR> :copen<CR>
-nnoremap <silent> ,c :call ToggleQuickfixList()<CR>
-nnoremap <silent> ,l :TlistToggle<CR>
-nnoremap <silent> ,n :NERDTreeToggle<CR>
-nnoremap ,R :RainbowParenthesesToggle<CR>
+"Turn off diffs for all windows in the current tab
+nnoremap <silent> <leader>d :diffoff!<CR>
 
-nnoremap ,a :Ack 
+"Some plugin mappings {{{
+nnoremap <silent> <leader>p :Pylint<CR> :copen<CR>
+nnoremap <silent> <leader>c :call ToggleQuickfixList()<CR>
+nnoremap <silent> <leader>l :TlistToggle<CR>
+nnoremap <silent> <leader>n :NERDTreeToggle<CR>
+nnoremap <leader>R :RainbowParenthesesToggle<CR>
+
+nnoremap <leader>a :Ack 
 
 "Fugitive mappings
-nnoremap ,gs :Gstatus<CR>
-nnoremap ,gd :Gdiff<CR>
-nnoremap ,gw :Gwrite<CR>
-nnoremap ,gr :Gread<CR>
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>gw :Gwrite<CR>
+nnoremap <leader>gr :Gread<CR>
 "}}}
 
 "}}}
