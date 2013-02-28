@@ -58,7 +58,7 @@ vnoremap x <Esc>
 "vv selects til end of line
 vnoremap v $
 "make Y behave more like C and D
-nmap Y y$ 
+nmap Y y$
 
 "omnicomplete
 inoremap <C-Space> <C-X><C-I>
@@ -68,7 +68,7 @@ nmap <silent> <leader><space> :nohlsearch<CR>
 
 "swap highlighted text with last deleted text
 "This one isn't working right sometimes; have to debug
-vnoremap <C-X> <Esc>`.``gvP``P
+vnoremap <C-x> <Esc>`.``gvP``P
 
 "gp selects code that was just pasted in the visual mode last used
 nnoremap <expr> gp  '`[' . strpart(getregtype(), 0, 1) . '`]'
@@ -208,4 +208,4 @@ let g:pylint_onwrite = 0
 "}}}
 "}}}
 
-" vim:foldlevel=marker
+" vim:foldmethod=marker
