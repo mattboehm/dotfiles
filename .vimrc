@@ -7,6 +7,7 @@ call pathogen#infect()
 set number 
 set hlsearch
 set background=dark
+set modeline
 syntax on
 set mouse:a
 filetype plugin on
@@ -110,11 +111,25 @@ nnoremap <leader>ve :tab sp ~/.vimrc<CR>
 "reload vimrc
 nnoremap <leader>vs :source ~/.vimrc<CR>
 
+"load my plugins to demo them
+command! Demo cd ~/repos/crashcart/plugin | so unstack.vim | so ../../accordion/plugin/accordion.vim | e sample_trace.txt | exe 'Ack! remap' | wincmd p
+
 "F2 toggles line numbers
 nnoremap <silent> <F2> :set nonumber!<CR>
 
+function! g:DiffToggle()
+  if &diff
+    diffoff
+  else
+    diffthis
+  endif
+endfunction
+
 "Turn off diffs for all windows in the current tab
-nnoremap <silent> <leader>d :diffoff!<CR>
+nnoremap <silent> <leader>d :call DiffToggle()<CR>
+
+"Space toggles folds
+nnoremap <Space> za
 
 "Some plugin mappings {{{
 nnoremap <silent> <leader>p :Pylint<CR> :copen<CR>
