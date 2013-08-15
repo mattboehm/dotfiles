@@ -8,6 +8,6 @@ setlocal expandtab
 setlocal nowrap
 set smartindent cinwords=if,elif,else,for,while,with,try,except,finally,def,class
 
-inoremap \[ [""]<Esc>hi
-inoremap ; _
-inoremap \; ;
+inoremap <buffer> \[ [""]<Esc>hi
+inoremap <buffer> ; _
+inoremap <buffer> \; ;

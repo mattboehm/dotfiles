@@ -124,6 +124,7 @@ nnoremap <silent> <leader>n :NERDTreeToggle<CR>
 nnoremap <leader>R :RainbowParenthesesToggle<CR>
 
 nnoremap <leader>a :Ack 
+nnoremap <leader>m :CtrlPMRUFiles<CR>
 
 "Fugitive mappings
 nnoremap <leader>gs :Gstatus<CR>
