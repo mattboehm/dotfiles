@@ -40,3 +40,9 @@
 [submodule ".vim/bundle/ctrlp"]
 	path = .vim/bundle/ctrlp
 	url = git://github.com/kien/ctrlp.vim.git
+[submodule ".vim/bundle/sparkup"]
+	path = .vim/bundle/sparkup
+	url = git://github.com/tristen/vim-sparkup.git
+[submodule ".vim/bundle/closetag"]
+	path = .vim/bundle/closetag
+	url = https://github.com/vim-scripts/closetag.vim.git
