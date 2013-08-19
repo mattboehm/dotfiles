@@ -8,19 +8,31 @@
         cm = commit
         in = fetch --dry-run
         co = checkout
-        br = branch
+        cob = checkout -b
+        br = branch -av
         cb = !git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \\(.*\\)/\\1/'
         pl = pull
+	pr = pull --rebase
         ps = push
         d = diff
         dc = diff --cached
         r = remote
-        changes = log --pretty=format:\"%h %cr %Cblue%cn%Creset %Cgreen%s%Creset\" --name-status
+	su = submodule update
+
+	#log formats
+	#changes
         ch = log --pretty=format:\"%h %cr %Cblue%cn%Creset %Cgreen%s%Creset\" --name-status
-        bin = !git ch --cherry `git cb`...master
-        bout = !git ch --cherry master...`git cb`
-        short = log --pretty=format:\"%h %cr %Cblue%cn%Creset %Cgreen%s%Creset\"
+	#short (hash, date, name, message on one line
         sh = log --pretty=format:\"%h %cr %Cblue%cn%Creset %Cgreen%s%Creset\"
+
+	#changes in master not in this branch
+        bin = !git ch --cherry `git cb`...master
+	#changes in this branch not in master
+        bout = !git ch --cherry master...`git cb`
+	#changes in remote not in local
+        rin = !git ch --cherry `git cb`...origin/`git cb`
+	#changes in local not in remote
+        rout = !git ch --cherry origin/`git cb`...`git cb`
 
 [color]
         ui = auto
