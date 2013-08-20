@@ -7,7 +7,7 @@ module("$1", {
 $0
 endsnippet
 
-snippet t "Quinit Test"
+snippet t "Qunit Test"
 test("$1", function(){
 	$2
 });
@@ -20,6 +20,12 @@ endsnippet
 
 snippet == "Qunit Deep Equal Test"
 deepEqual($1, $2, ${3:"Should be equal: $1, $2"});
+endsnippet
+
+snippet ! "Qunit Throws Test"
+throws(function(){
+	$2
+}, "$1");
 endsnippet
 
 snippet cont "Initialize Angular Controller (test)"

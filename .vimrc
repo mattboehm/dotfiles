@@ -109,10 +109,15 @@ nnoremap <silent> <C-k> :cp<CR>
 "open vimrc in new tab
 nnoremap <leader>ve :tab sp ~/.vimrc<CR>
 "reload vimrc
-nnoremap <leader>vs :source ~/.vimrc<CR>
+nnoremap <leader>vv :source ~/.vimrc<CR>
+"edit snippets
+nnoremap <leader>vs :call g:EditMySnippets()<CR>
 
-"load my plugins to demo them
-command! Demo cd ~/repos/crashcart/plugin | so unstack.vim | so ../../accordion/plugin/accordion.vim | e sample_trace.txt | exe 'Ack! remap' | wincmd p
+function! g:EditMySnippets()
+  let ft = &ft
+  tabe ~/.vim/bundle/mbsnippets/mysnippets/
+  call search(ft)
+endfunction
 
 "F2 toggles line numbers
 nnoremap <silent> <F2> :set nonumber!<CR>
@@ -151,9 +156,12 @@ nnoremap <leader>gr :Gread<CR>
 "}}}
 
 "Commands {{{
-"DiffOrig opens a diff between the current buffer and the saved version
+"DiffOrig: opens a diff between the current buffer and the saved version
 command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
 	 	\ | wincmd p | diffthis
+
+"Demo: load my plugins to demo them
+command! Demo cd ~/repos/crashcart/plugin | so unstack.vim | so ../../accordion/plugin/accordion.vim | e sample_trace.txt | exe 'Ack! remap' | wincmd p
 
 "}}}
 
@@ -184,6 +192,13 @@ let g:pylint_signs = 0
 let g:pylint_onwrite = 0
 "}}}
 
+"UltiSnips {{{
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsSnippetDirectories=["mysnippets"]
+let g:ultisnips_python_style="sphinx"
+"}}}
 
 "taglist settings {{{
 
