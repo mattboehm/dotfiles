@@ -18,8 +18,16 @@ snippet = "Qunit Equal Test"
 equal($1, $2, ${3:"Should be equal: $1, $2"});
 endsnippet
 
+snippet != "Qunit Not Equal Test"
+notEqual($1, $2, ${3:"Shouldn't be equal: $1, $2"});
+endsnippet
+
 snippet == "Qunit Deep Equal Test"
 deepEqual($1, $2, ${3:"Should be equal: $1, $2"});
+endsnippet
+
+snippet !== "Qunit Deep Not Equal Test"
+notDeepEqual($1, $2, ${3:"Shouldn't be equal: $1, $2"});
 endsnippet
 
 snippet ! "Qunit Throws Test"
@@ -34,6 +42,6 @@ var $controller = injector.get("$controller");
 $controller("$1", {$scope: this.$scope});
 endsnippet
 
-snippet s "this.$scope"
+snippet ts "this.$scope" i
 this.$scope.
 endsnippet
