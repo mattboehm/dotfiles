@@ -152,6 +152,7 @@ nnoremap <leader>gd :Gdiff<CR>
 nnoremap <leader>gw :Gwrite<CR>
 nnoremap <leader>gr :Gread<CR>
 nnoremap <leader>gl :Glog --reverse<CR>
+nnoremap <leader>gp :Git push<CR>
 "}}}
 
 "}}}
