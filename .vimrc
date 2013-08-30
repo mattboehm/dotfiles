@@ -2,7 +2,6 @@
 runtime bundle/pathogen/autoload/pathogen.vim
 call pathogen#infect()
 "}}}
-
 "Settings {{{
 set number 
 set hlsearch
@@ -21,7 +20,6 @@ else
 endif
 let mapleader=","
 let localleader="\\"
-
 " Backups {{{
 " (thanks Steve Losh)
 set backup
@@ -43,7 +41,6 @@ if !isdirectory(expand(&directory))
 endif
 "}}}
 "}}}
-
 "Key mapping {{{
 nnoremap ; :
 vnoremap ; :
@@ -77,7 +74,6 @@ nnoremap <expr> gp  '`[' . strpart(getregtype(), 0, 1) . '`]'
 "z-Up/Down goes to top/bottom of current fold
 nnoremap z<Up> [z
 nnoremap z<Down> ]z
-
 "Tabs and Splits {{{
 "when opening files in splits/tabs, I first split the current buffer into a
 "new vsplit/tab and then open the new file with whatever method suits me.
@@ -101,7 +97,6 @@ nnoremap <C-Right> <C-W><right>
 nnoremap <C-Up> <C-W><up>
 nnoremap <C-Down> <C-W><down>
 "}}}
-
 "ctrl-j/k to jump between 'compiler' messages
 nnoremap <silent> <C-j> :cn<CR>
 nnoremap <silent> <C-k> :cp<CR>
@@ -135,7 +130,6 @@ nnoremap <silent> <leader>d :call DiffToggle()<CR>
 
 "Space toggles folds
 nnoremap <Space> za
-
 "Some plugin mappings {{{
 nnoremap <silent> <leader>p :Pylint<CR> :copen<CR>
 nnoremap <silent> <leader>c :call ToggleQuickfixList()<CR>
@@ -154,9 +148,7 @@ nnoremap <leader>gr :Gread<CR>
 nnoremap <leader>gl :Glog --reverse<CR>
 nnoremap <leader>gp :Git push<CR>
 "}}}
-
 "}}}
-
 "Commands {{{
 "DiffOrig: opens a diff between the current buffer and the saved version
 command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
@@ -166,7 +158,6 @@ command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
 command! Demo cd ~/repos/crashcart/plugin | so unstack.vim | so ../../accordion/plugin/accordion.vim | e sample_trace.txt | exe 'Ack! remap' | wincmd p
 
 "}}}
-
 "Plugin settings {{{
 "CtrlP {{{
 let g:ctrlp_map = ',f'
@@ -178,12 +169,10 @@ let g:ctrlp_custom_ignore = {
 \ 'link': 'some_bad_symbolic_links',
 \ }
 "}}}
-
 "RopeVim {{{
 let g:ropevim_local_prefix = '\r'
 let g:ropevim_extended_complete=1
 "}}}
-
 "PyLint {{{
 augroup ftpy
 	autocmd!
@@ -193,7 +182,6 @@ let g:pylint_inline_highlight = 0
 let g:pylint_signs = 0
 let g:pylint_onwrite = 0
 "}}}
-
 "UltiSnips {{{
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
@@ -201,7 +189,11 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsSnippetDirectories=["mysnippets"]
 let g:ultisnips_python_style="sphinx"
 "}}}
-
+"Unite {{{
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+let g:unite_enable_start_insert = 1
+let g:unite_source_history_yank_enable = 1
+"}}}
 "taglist settings {{{
 
     " When the taglist window is toggle opened, move the cursor to the
@@ -240,5 +232,4 @@ let g:ultisnips_python_style="sphinx"
         let Tlist_Max_Tag_Length = 10
 "}}}
 "}}}
-
 " vim:foldmethod=marker
