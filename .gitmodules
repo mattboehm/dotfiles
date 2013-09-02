@@ -52,3 +52,6 @@
 [submodule ".vim/bundle/unite"]
 	path = .vim/bundle/unite
 	url = https://github.com/Shougo/unite.vim.git
+[submodule ".vim/bundle/surround"]
+	path = .vim/bundle/surround
+	url = https://github.com/tpope/vim-surround.git
