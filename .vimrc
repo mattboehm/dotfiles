@@ -142,11 +142,13 @@ nnoremap <leader>m :CtrlPMRUFiles<CR>
 
 "Fugitive mappings
 nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gc :Gcommit<CR>
 nnoremap <leader>gd :Gdiff<CR>
 nnoremap <leader>gw :Gwrite<CR>
 nnoremap <leader>gr :Gread<CR>
 nnoremap <leader>gl :Glog --reverse<CR>
 nnoremap <leader>gp :Git push<CR>
+nnoremap <leader>gb :Gbrowse<CR>
 "}}}
 "}}}
 "Commands {{{
