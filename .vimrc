@@ -53,8 +53,8 @@ inoremap hh <esc>
 
 "x escapes visual mode
 vnoremap x <Esc>
-"vv selects til end of line
-vnoremap v $
+"vv selects til end of line (not incl newline)
+vnoremap v $h
 "make Y behave more like C and D
 nmap Y y$
 
