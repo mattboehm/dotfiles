@@ -8,7 +8,7 @@ function(${1:attribute}) {
 endsnippet
 
 snippet =f "= Function"
-= function(${1:attribute}) {
+= function(${1}) {
 	${VISUAL}$0
 };
 endsnippet
@@ -23,9 +23,14 @@ snippet :, "Object Value JS"
 ${1:value_name}: ${0:value},
 endsnippet
 
-snippet : "Object key key: 'value'"
+snippet :: "Object key key: 'value'"
 ${1:key}: ${2:"${3:value}"}${4:,
 }
+endsnippet
+
+snippet : "Object key key: key"
+${1:key}: ${1},
+
 endsnippet
 
 snippet for "for (...) {...}"
