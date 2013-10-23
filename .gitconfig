@@ -10,6 +10,7 @@
         co = checkout
         cob = checkout -b
         br = branch -av
+        bd = branch --delete
         cb = !git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \\(.*\\)/\\1/'
         pl = pull
 	pr = pull --rebase
