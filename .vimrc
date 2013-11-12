@@ -159,6 +159,14 @@ command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
 "Demo: load my plugins to demo them
 command! Demo cd ~/repos/crashcart/plugin | so unstack.vim | so ../../accordion/plugin/accordion.vim | e sample_trace.txt | exe 'Ack! remap' | wincmd p
 
+"Sign highlighting
+highlight HL ctermbg=darkgray
+sign define hl linehl=HL
+let g:highlightLineSignId = 74000
+function! g:HighlightLine()
+	execute 'sign place' g:highlightLineSignId 'line='.line(".") 'name=hl' 'file='.expand("%")
+	let g:highlightLineSignId += 1
+endfunction
 "}}}
 "Plugin settings {{{
 "CtrlP {{{
