@@ -233,5 +233,9 @@ let g:unite_source_history_yank_enable = 1
 
         let Tlist_Max_Tag_Length = 10
 "}}}
+"Startify {{{
+let g:startify_bookmarks = ['~/.vimrc', '~/repos/adss']
+let g:tmuxify_map_prefix = '<leader>b'
+"}}}
 "}}}
 " vim:foldmethod=marker
