@@ -8,7 +8,7 @@ set hlsearch
 set background=dark
 set modeline
 syntax on
-set mouse:a
+set mouse=a
 filetype plugin on
 
 set t_Co=256
@@ -43,8 +43,8 @@ endif
 "}}}
 "Key mapping {{{
 nnoremap ; :
-vnoremap ; :
-vnoremap : ;
+xnoremap ; :
+xnoremap : ;
 
 "use jj to escape from insert mode
 inoremap jj <esc>
@@ -52,7 +52,7 @@ inoremap jj <esc>
 inoremap hh <esc>
 
 "x escapes visual mode
-vnoremap x <Esc>
+xnoremap x <Esc>
 "vv selects til end of line (not incl newline)
 vnoremap v $h
 "make Y behave more like C and D
@@ -66,7 +66,7 @@ nmap <silent> <leader><space> :nohlsearch<CR>
 
 "swap highlighted text with last deleted text
 "This one isn't working right sometimes; have to debug
-vnoremap <C-x> <Esc>`.``gvP``P
+xnoremap <C-x> <Esc>`.``gvP``P
 
 "gp selects code that was just pasted in the visual mode last used
 nnoremap <expr> gp  '`[' . strpart(getregtype(), 0, 1) . '`]'
@@ -137,7 +137,7 @@ nnoremap <silent> <leader>l :TlistToggle<CR>
 nnoremap <silent> <leader>n :NERDTreeToggle<CR>
 nnoremap <leader>R :RainbowParenthesesToggle<CR>
 
-nnoremap <leader>a :Ack 
+nnoremap <leader>a :Ack<space>
 nnoremap <leader>m :CtrlPMRUFiles<CR>
 
 "Fugitive mappings
