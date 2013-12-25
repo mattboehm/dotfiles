@@ -130,6 +130,19 @@ nnoremap <silent> <leader>d :call DiffToggle()<CR>
 
 "Space toggles folds
 nnoremap <Space> za
+
+" Visual Mode */# from Scrooloose via Steve Losh {{{
+function! s:VSetSearch()
+  let temp = @@
+  norm! gvy
+  let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
+  let @@ = temp
+endfunction
+
+vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR><c-o>
+vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR><c-o>
+" }}}
+
 "Some plugin mappings {{{
 nnoremap <silent> <leader>p :Pylint<CR> :copen<CR>
 nnoremap <silent> <leader>c :call ToggleQuickfixList()<CR>
