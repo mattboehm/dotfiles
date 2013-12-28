@@ -105,7 +105,9 @@ nnoremap <silent> <C-j> :cn<CR>
 nnoremap <silent> <C-k> :cp<CR>
 
 "open vimrc in new tab
-nnoremap <leader>ve :tab sp ~/.vimrc<CR>
+"if ~/.vimrc is a symlink, it resolves the symlink before opening so that
+"fugitive is happy
+nnoremap <leader>ve :execute "tab sp" resolve(expand("~/.vimrc"))<CR>
 "reload vimrc
 nnoremap <leader>vv :source ~/.vimrc<CR>
 "edit snippets
