@@ -46,6 +46,9 @@ nnoremap ; :
 xnoremap ; :
 xnoremap : ;
 
+"tab to jump to matching paren/bracket
+nnoremap <tab> %
+
 "use jj to escape from insert mode
 inoremap jj <esc>
 "h is in the j position on dvorak keyboards
