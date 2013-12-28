@@ -111,13 +111,7 @@ nnoremap <leader>ve :execute "tab sp" resolve(expand("~/.vimrc"))<CR>
 "reload vimrc
 nnoremap <leader>vv :source ~/.vimrc<CR>
 "edit snippets
-nnoremap <leader>vs :call g:EditMySnippets()<CR>
-
-function! g:EditMySnippets()
-  let ft = &ft
-  tabe ~/.vim/bundle/mbsnippets/mysnippets/
-  call search(ft)
-endfunction
+nnoremap <leader>vs :tab sp <bar> UltiSnipsEdit<CR>
 
 "F2 toggles line numbers
 nnoremap <silent> <F2> :set nonumber!<CR>
