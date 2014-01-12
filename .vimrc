@@ -161,6 +161,8 @@ nnoremap <leader>gr :Gread<CR>
 nnoremap <leader>gl :Glog --reverse<CR>
 nnoremap <leader>gp :Git push<CR>
 nnoremap <leader>gb :Gbrowse<CR>
+"during a merge conflict, diff current file with common ancestor in new tab.
+nnoremap <leader>ga :tab sp \| Gvedit :1 \| windo diffthis<CR>
 "}}}
 "}}}
 "Commands {{{
