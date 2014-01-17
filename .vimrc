@@ -8,7 +8,7 @@ set hlsearch
 set background=dark
 set modeline
 syntax on
-set mouse:a
+set mouse=a
 filetype plugin on
 
 set t_Co=256
@@ -43,8 +43,11 @@ endif
 "}}}
 "Key mapping {{{
 nnoremap ; :
-vnoremap ; :
-vnoremap : ;
+xnoremap ; :
+xnoremap : ;
+
+"tab to jump to matching paren/bracket
+nnoremap <tab> %
 
 "use jj to escape from insert mode
 inoremap jj <esc>
@@ -52,7 +55,7 @@ inoremap jj <esc>
 inoremap hh <esc>
 
 "x escapes visual mode
-vnoremap x <Esc>
+xnoremap x <Esc>
 "vv selects til end of line (not incl newline)
 vnoremap v $h
 "make Y behave more like C and D
@@ -66,7 +69,7 @@ nmap <silent> <leader><space> :nohlsearch<CR>
 
 "swap highlighted text with last deleted text
 "This one isn't working right sometimes; have to debug
-vnoremap <C-x> <Esc>`.``gvP``P
+xnoremap <C-x> <Esc>`.``gvP``P
 
 "gp selects code that was just pasted in the visual mode last used
 nnoremap <expr> gp  '`[' . strpart(getregtype(), 0, 1) . '`]'
@@ -102,17 +105,13 @@ nnoremap <silent> <C-j> :cn<CR>
 nnoremap <silent> <C-k> :cp<CR>
 
 "open vimrc in new tab
-nnoremap <leader>ve :tab sp ~/.vimrc<CR>
+"if ~/.vimrc is a symlink, it resolves the symlink before opening so that
+"fugitive is happy
+nnoremap <leader>ve :execute "tab sp" resolve(expand("~/.vimrc"))<CR>
 "reload vimrc
 nnoremap <leader>vv :source ~/.vimrc<CR>
 "edit snippets
-nnoremap <leader>vs :call g:EditMySnippets()<CR>
-
-function! g:EditMySnippets()
-  let ft = &ft
-  tabe ~/.vim/bundle/mbsnippets/mysnippets/
-  call search(ft)
-endfunction
+nnoremap <leader>vs :tab sp <bar> UltiSnipsEdit<CR>
 
 "F2 toggles line numbers
 nnoremap <silent> <F2> :set nonumber!<CR>
@@ -130,6 +129,19 @@ nnoremap <silent> <leader>d :call DiffToggle()<CR>
 
 "Space toggles folds
 nnoremap <Space> za
+
+" Visual Mode */# from Scrooloose via Steve Losh {{{
+function! s:VSetSearch()
+  let temp = @@
+  norm! gvy
+  let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
+  let @@ = temp
+endfunction
+
+vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR><c-o>
+vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR><c-o>
+" }}}
+
 "Some plugin mappings {{{
 nnoremap <silent> <leader>p :Pylint<CR> :copen<CR>
 nnoremap <silent> <leader>c :call ToggleQuickfixList()<CR>
@@ -137,7 +149,7 @@ nnoremap <silent> <leader>l :TlistToggle<CR>
 nnoremap <silent> <leader>n :NERDTreeToggle<CR>
 nnoremap <leader>R :RainbowParenthesesToggle<CR>
 
-nnoremap <leader>a :Ack 
+nnoremap <leader>a :Ack<space>
 nnoremap <leader>m :CtrlPMRUFiles<CR>
 
 "Fugitive mappings
@@ -149,6 +161,7 @@ nnoremap <leader>gr :Gread<CR>
 nnoremap <leader>gl :Glog --reverse<CR>
 nnoremap <leader>gp :Git push<CR>
 nnoremap <leader>gb :Gbrowse<CR>
+nnoremap <leader>ga :tab sp \| Gvedit :1 \| windo diffthis<CR>
 
 "UltiSnips
 let g:UltiSnipsExpandTrigger='<c-l>'
