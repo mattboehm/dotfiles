@@ -149,6 +149,9 @@ nnoremap <leader>gr :Gread<CR>
 nnoremap <leader>gl :Glog --reverse<CR>
 nnoremap <leader>gp :Git push<CR>
 nnoremap <leader>gb :Gbrowse<CR>
+
+"UltiSnips
+let g:UltiSnipsExpandTrigger='<c-l>'
 "}}}
 "}}}
 "Commands {{{
