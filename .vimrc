@@ -170,6 +170,16 @@ function! g:HighlightLine()
 	execute 'sign place' g:highlightLineSignId 'line='.line(".") 'name=hl' 'file='.expand("%")
 	let g:highlightLineSignId += 1
 endfunction
+
+function! g:ViewCommits(num_commits)
+	let commit=0
+	while commit < a:num_commits
+		execute "Gedit HEAD~".commit
+		topleft vsp
+		let commit += 1
+	endwhile
+	q
+endfunction
 "}}}
 "Plugin settings {{{
 "CtrlP {{{
