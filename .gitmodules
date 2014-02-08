@@ -73,3 +73,6 @@
 [submodule ".vim/bundle/fugitive-blame-comments"]
 	path = .vim/bundle/fugitive-blame-comments
 	url = git://github.com/tommcdo/vim-fugitive-blame-ext.git
+[submodule ".vim/bundle/sneak"]
+	path = .vim/bundle/sneak
+	url = git://github.com/justinmk/vim-sneak.git
