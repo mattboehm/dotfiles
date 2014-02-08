@@ -23,7 +23,8 @@ let localleader="\\"
 " Backups {{{
 " (thanks Steve Losh)
 set backup
-set noswapfile
+set swapfile
+set undofile
 
 set undodir=~/.vim/tmp/undo//
 set backupdir=~/.vim/tmp/backup//
