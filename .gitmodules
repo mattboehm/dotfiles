@@ -73,3 +73,6 @@
 [submodule ".vim/bundle/sneak"]
 	path = .vim/bundle/sneak
 	url = git://github.com/justinmk/vim-sneak.git
+[submodule ".vim/bundle/syntastic"]
+	path = .vim/bundle/syntastic
+	url = git://github.com/scrooloose/syntastic.git
