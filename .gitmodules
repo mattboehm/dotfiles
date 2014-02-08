@@ -76,3 +76,6 @@
 [submodule ".vim/bundle/syntastic"]
 	path = .vim/bundle/syntastic
 	url = git://github.com/scrooloose/syntastic.git
+[submodule ".vim/bundle/extradite"]
+	path = .vim/bundle/extradite
+	url = git://github.com/int3/vim-extradite.git
