@@ -67,3 +67,6 @@
 [submodule ".vim/bundle/argtextobj.vim"]
 	path = .vim/bundle/argtextobj.vim
 	url = git://github.com/vim-scripts/argtextobj.vim.git
+[submodule ".vim/bundle/vinegar"]
+	path = .vim/bundle/vinegar
+	url = git://github.com/tpope/vim-vinegar.git
