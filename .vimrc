@@ -49,6 +49,7 @@ xnoremap : ;
 
 "tab to jump to matching paren/bracket
 nnoremap <tab> %
+vnoremap <tab> %
 
 "use jj to escape from insert mode
 inoremap jj <esc>
