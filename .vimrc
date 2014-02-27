@@ -162,6 +162,7 @@ nnoremap <leader>gw :Gwrite<CR>
 nnoremap <leader>gr :Gread<CR>
 nnoremap <leader>gl :Glog --reverse<CR>
 nnoremap <leader>gp :Git push<CR>
+nnoremap <leader>gP :Git push gitlab<CR>
 nnoremap <leader>gb :Gbrowse<CR>
 nnoremap <leader>ga :tab sp \| Gvedit :1 \| windo diffthis<CR>
 
