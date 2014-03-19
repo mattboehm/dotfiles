@@ -50,6 +50,9 @@ xnoremap : ;
 "tab to jump to matching paren/bracket
 nnoremap <tab> %
 
+"enter jumps to definition 
+nnoremap <cr> <c-]>
+
 "use jj to escape from insert mode
 inoremap jj <esc>
 "h is in the j position on dvorak keyboards
@@ -109,6 +112,8 @@ nnoremap <silent> <C-k> :cp<CR>
 "if ~/.vimrc is a symlink, it resolves the symlink before opening so that
 "fugitive is happy
 nnoremap <leader>ve :execute "tab sp" resolve(expand("~/.vimrc"))<CR>
+"open pentadactyl config
+nnoremap <leader>vp :execute "tab sp" resolve(expand("~/.pentadactylrc"))<CR>
 "reload vimrc
 nnoremap <leader>vv :source ~/.vimrc<CR>
 "edit snippets
