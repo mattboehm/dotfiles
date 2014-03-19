@@ -215,15 +215,6 @@ let g:ctrlp_custom_ignore = {
 let g:ropevim_local_prefix = '\r'
 let g:ropevim_extended_complete=1
 "}}}
-"PyLint {{{
-augroup ftpy
-	autocmd!
-	autocmd FileType python compiler pylint
-augroup end
-let g:pylint_inline_highlight = 0
-let g:pylint_signs = 0
-let g:pylint_onwrite = 0
-"}}}
 "UltiSnips {{{
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
