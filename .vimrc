@@ -62,8 +62,11 @@ inoremap hh <esc>
 xnoremap x <Esc>
 "vv selects til end of line (not incl newline)
 vnoremap v $h
+"Y in visual mode copies to selection clipboard
+vnoremap Y "*y
+
 "make Y behave more like C and D
-nmap Y y$
+nnoremap Y y$
 
 "omnicomplete
 inoremap <C-Space> <C-X><C-I>
