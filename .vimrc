@@ -49,6 +49,7 @@ xnoremap : ;
 
 "tab to jump to matching paren/bracket
 nnoremap <tab> %
+vnoremap <tab> %
 
 "enter jumps to definition 
 nnoremap <cr> <c-]>
@@ -174,7 +175,11 @@ nnoremap <leader>gl :Glog --reverse<CR>
 nnoremap <leader>gp :Git push<CR>
 nnoremap <leader>gb :Gblame<CR>
 nnoremap <leader>gB :Gbrowse<CR>
+nnoremap <leader>gP :Git push gitlab<CR>
 nnoremap <leader>ga :tab sp \| Gvedit :1 \| windo diffthis<CR>
+
+"Unstack
+nnoremap <silent> <c-u> :UnstackFromSelection<CR>
 
 "UltiSnips
 let g:UltiSnipsExpandTrigger='<c-l>'
@@ -237,6 +242,9 @@ let g:ultisnips_python_style="sphinx"
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 let g:unite_enable_start_insert = 1
 let g:unite_source_history_yank_enable = 1
+"}}}
+"Unstack {{{
+let g:unstack_extractors = unstack#extractors#GetDefaults() + [unstack#extractors#Regex('\v^\s*([^:]+):L?([0-9]+)\s*', '\1', '\2')]
 "}}}
 "taglist settings {{{
 
