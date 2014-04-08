@@ -125,6 +125,9 @@ nnoremap <leader>vs :tab sp <bar> UltiSnipsEdit<CR>
 "F2 toggles line numbers
 nnoremap <silent> <F2> :set nonumber!<CR>
 
+"F5 run python
+nnoremap <F5> :!python %<CR>
+
 function! g:DiffToggle()
   if &diff
     diffoff
