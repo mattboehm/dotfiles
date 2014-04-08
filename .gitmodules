@@ -79,3 +79,12 @@
 [submodule ".vim/bundle/extradite"]
 	path = .vim/bundle/extradite
 	url = git://github.com/int3/vim-extradite.git
+[submodule ".vim/bundle/vim-textobj-user"]
+	path = .vim/bundle/vim-textobj-user
+	url = https://github.com/kana/vim-textobj-user.git
+[submodule ".vim/bundle/vim-textobj-indent"]
+	path = .vim/bundle/vim-textobj-indent
+	url = https://github.com/kana/vim-textobj-indent.git
+[submodule ".vim/bundle/vim-textobj-python"]
+	path = .vim/bundle/vim-textobj-python
+	url = https://github.com/bps/vim-textobj-python.git
