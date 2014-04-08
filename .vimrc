@@ -175,6 +175,10 @@ nnoremap <leader>ga :tab sp \| Gvedit :1 \| windo diffthis<CR>
 
 "UltiSnips
 let g:UltiSnipsExpandTrigger='<c-l>'
+
+"Unstack
+nnoremap <c-u> :UnstackFromSelection<CR>
+
 "}}}
 "}}}
 "Commands {{{
