@@ -133,8 +133,8 @@ function! g:DiffToggle()
   endif
 endfunction
 
-"Turn off diffs for all windows in the current tab
-nnoremap <silent> <leader>d :call DiffToggle()<CR>
+"Toggle diff for current window
+nnoremap <silent> <leader>d :call g:DiffToggle()<CR>
 
 "Space toggles folds
 nnoremap <Space> za
@@ -169,7 +169,8 @@ nnoremap <leader>gw :Gwrite<CR>
 nnoremap <leader>gr :Gread<CR>
 nnoremap <leader>gl :Glog --reverse<CR>
 nnoremap <leader>gp :Git push<CR>
-nnoremap <leader>gb :Gbrowse<CR>
+nnoremap <leader>gb :Gblame<CR>
+nnoremap <leader>gB :Gbrowse<CR>
 nnoremap <leader>ga :tab sp \| Gvedit :1 \| windo diffthis<CR>
 
 "UltiSnips
