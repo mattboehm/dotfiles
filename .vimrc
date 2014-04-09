@@ -178,6 +178,12 @@ nnoremap <leader>gB :Gbrowse<CR>
 nnoremap <leader>gP :Git push gitlab<CR>
 nnoremap <leader>ga :tab sp \| Gvedit :1 \| windo diffthis<CR>
 
+"Fugitive extensions
+nnoremap <silent> <leader>gm :tab sp<CR>:Glistmod<CR>
+nnoremap <silent> <c-s-j> :call g:DiffNextLoc()<CR>
+nnoremap <silent> <c-s-k> :call g:DiffPrevLoc()<CR>
+
+
 "Unstack
 nnoremap <silent> <c-u> :UnstackFromSelection<CR>
 
@@ -206,6 +212,7 @@ function! g:HighlightLine()
 	let g:highlightLineSignId += 1
 endfunction
 
+"Fugitive extensions: {{{
 function! g:ViewCommits(num_commits)
 	let commit=0
 	while commit < a:num_commits
@@ -215,6 +222,32 @@ function! g:ViewCommits(num_commits)
 	endwhile
 	q
 endfunction
+
+command! Glistmod only | call g:ListModified() | Gdiff
+function! g:ListModified()
+	let old_makeprg=&makeprg
+	"let &makeprg = "git diff --cached --name-only"
+	let &makeprg = "git ls-files -m"
+	let old_errorformat=&errorformat
+	let &errorformat="%f"
+	lmake
+	let &makeprg=old_makeprg
+	let &errorformat=old_errorformat
+endfunction
+
+function! g:DiffNextLoc()
+	windo set nodiff
+	only
+	lnext
+	Gdiff
+endfunction
+function! g:DiffPrevLoc()
+	windo set nodiff
+	only
+	lprevious
+	Gdiff
+endfunction
+"}}}
 "}}}
 "Plugin settings {{{
 "CtrlP {{{
@@ -244,7 +277,7 @@ let g:unite_enable_start_insert = 1
 let g:unite_source_history_yank_enable = 1
 "}}}
 "Unstack {{{
-let g:unstack_extractors = unstack#extractors#GetDefaults() + [unstack#extractors#Regex('\v^\s*([^:]+):L?([0-9]+)\s*', '\1', '\2')]
+"let g:unstack_extractors = unstack#extractors#GetDefaults() + [unstack#extractors#Regex('\v^\s*([^:]+):L?([0-9]+)\s*', '\1', '\2')]
 "}}}
 "taglist settings {{{
 
