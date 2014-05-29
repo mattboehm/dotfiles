@@ -51,9 +51,6 @@ xnoremap : ;
 nnoremap <tab> %
 vnoremap <tab> %
 
-"enter jumps to definition 
-nnoremap <cr> <c-]>
-
 "use jj to escape from insert mode
 inoremap jj <esc>
 "h is in the j position on dvorak keyboards
@@ -180,8 +177,8 @@ nnoremap <leader>ga :tab sp \| Gvedit :1 \| windo diffthis<CR>
 
 "Fugitive extensions
 nnoremap <silent> <leader>gm :tab sp<CR>:Glistmod<CR>
-nnoremap <silent> <c-s-j> :call g:DiffNextLoc()<CR>
-nnoremap <silent> <c-s-k> :call g:DiffPrevLoc()<CR>
+nnoremap <silent> ]d :call g:DiffNextLoc()<CR>
+nnoremap <silent> [d :call g:DiffPrevLoc()<CR>
 
 
 "Unstack
