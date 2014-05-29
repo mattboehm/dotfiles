@@ -88,3 +88,6 @@
 [submodule ".vim/bundle/vim-textobj-python"]
 	path = .vim/bundle/vim-textobj-python
 	url = https://github.com/bps/vim-textobj-python.git
+[submodule ".vim/bundle/editqf"]
+	path = .vim/bundle/editqf
+	url = git://github.com/jceb/vim-editqf.git
