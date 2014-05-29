@@ -244,7 +244,7 @@ let g:unite_enable_start_insert = 1
 let g:unite_source_history_yank_enable = 1
 "}}}
 "Unstack {{{
-let g:unstack_extractors = unstack#extractors#GetDefaults() + [unstack#extractors#Regex('\v^\s*([^:]+):L?([0-9]+)\s*', '\1', '\2')]
+let g:unstack_extractors = unstack#extractors#GetDefaults() + [unstack#extractors#Regex('\v^\s*([^:]+):L?([0-9]+)\s*', '\1', '\2'), unstack#extractors#Regex('\v^.*File "([^"]+)", line ([0-9]+).+', '\1', '\2')]
 "}}}
 "taglist settings {{{
 
