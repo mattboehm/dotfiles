@@ -208,7 +208,7 @@ function! g:HighlightLine()
 	execute 'sign place' g:highlightLineSignId 'line='.line(".") 'name=hl' 'file='.expand("%")
 	let g:highlightLineSignId += 1
 endfunction
-
+command! RemoveQFEntry let qf_temp=getqflist() | call remove(qf_temp, getpos(".")[1]-1) | call setqflist(qf_temp, "r")
 "Fugitive extensions: {{{
 function! g:ViewCommits(num_commits)
 	let commit=0
@@ -316,6 +316,10 @@ let g:unite_source_history_yank_enable = 1
 "Startify {{{
 let g:startify_bookmarks = ['~/.vimrc', '~/repos/adss']
 let g:tmuxify_map_prefix = '<leader>b'
+"}}}
+"editqf {{{
+"disable default mappings
+let g:editqf_no_mappings = 1
 "}}}
 "}}}
 " vim:foldmethod=marker
