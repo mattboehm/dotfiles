@@ -51,9 +51,6 @@ xnoremap : ;
 nnoremap <tab> %
 vnoremap <tab> %
 
-"enter jumps to definition 
-nnoremap <cr> <c-]>
-
 "use jj to escape from insert mode
 inoremap jj <esc>
 "h is in the j position on dvorak keyboards
@@ -178,6 +175,12 @@ nnoremap <leader>gB :Gbrowse<CR>
 nnoremap <leader>gP :Git push gitlab<CR>
 nnoremap <leader>ga :tab sp \| Gvedit :1 \| windo diffthis<CR>
 
+"Fugitive extensions
+nnoremap <silent> <leader>gm :tab sp<CR>:Glistmod<CR>
+nnoremap <silent> ]d :call g:DiffNextLoc()<CR>
+nnoremap <silent> [d :call g:DiffPrevLoc()<CR>
+
+
 "Unstack
 nnoremap <silent> <c-u> :UnstackFromSelection<CR>
 
@@ -205,7 +208,7 @@ function! g:HighlightLine()
 	execute 'sign place' g:highlightLineSignId 'line='.line(".") 'name=hl' 'file='.expand("%")
 	let g:highlightLineSignId += 1
 endfunction
-
+"Fugitive extensions: {{{
 function! g:ViewCommits(num_commits)
 	let commit=0
 	while commit < a:num_commits
@@ -215,6 +218,32 @@ function! g:ViewCommits(num_commits)
 	endwhile
 	q
 endfunction
+
+command! Glistmod only | call g:ListModified() | Gdiff
+function! g:ListModified()
+	let old_makeprg=&makeprg
+	"let &makeprg = "git diff --cached --name-only"
+	let &makeprg = "git ls-files -m"
+	let old_errorformat=&errorformat
+	let &errorformat="%f"
+	lmake
+	let &makeprg=old_makeprg
+	let &errorformat=old_errorformat
+endfunction
+
+function! g:DiffNextLoc()
+	windo set nodiff
+	only
+	lnext
+	Gdiff
+endfunction
+function! g:DiffPrevLoc()
+	windo set nodiff
+	only
+	lprevious
+	Gdiff
+endfunction
+"}}}
 "}}}
 "Plugin settings {{{
 "CtrlP {{{
@@ -244,7 +273,7 @@ let g:unite_enable_start_insert = 1
 let g:unite_source_history_yank_enable = 1
 "}}}
 "Unstack {{{
-let g:unstack_extractors = unstack#extractors#GetDefaults() + [unstack#extractors#Regex('\v^\s*([^:]+):L?([0-9]+)\s*', '\1', '\2'), unstack#extractors#Regex('\v^.*File "([^"]+)", line ([0-9]+).+', '\1', '\2')]
+"let g:unstack_extractors = unstack#extractors#GetDefaults() + [unstack#extractors#Regex('\v^\s*([^:]+):L?([0-9]+)\s*', '\1', '\2')]
 "}}}
 "taglist settings {{{
 
@@ -286,6 +315,10 @@ let g:unstack_extractors = unstack#extractors#GetDefaults() + [unstack#extractor
 "Startify {{{
 let g:startify_bookmarks = ['~/.vimrc', '~/repos/adss']
 let g:tmuxify_map_prefix = '<leader>b'
+"}}}
+"editqf {{{
+"disable default mappings
+let g:editqf_no_mappings = 1
 "}}}
 "}}}
 " vim:foldmethod=marker

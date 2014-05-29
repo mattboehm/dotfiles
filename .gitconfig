@@ -15,6 +15,7 @@
         pl = pull
 	pr = pull --rebase
         ps = push
+	pb = !git push origin `git cb`
         d = diff
         dc = diff --cached
         r = remote
