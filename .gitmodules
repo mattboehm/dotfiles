@@ -97,3 +97,6 @@
 [submodule ".vim/bundle/accordion"]
 	path = .vim/bundle/accordion
 	url = https://github.com/mattboehm/vim-accordion.git
+[submodule ".vim/bundle/unstack"]
+	path = .vim/bundle/unstack
+	url = https://github.com/mattboehm/vim-unstack.git
