@@ -94,3 +94,6 @@
 [submodule ".vim/bundle/editqf"]
 	path = .vim/bundle/editqf
 	url = git://github.com/jceb/vim-editqf.git
+[submodule ".vim/bundle/accordion"]
+	path = .vim/bundle/accordion
+	url = https://github.com/mattboehm/vim-accordion.git
