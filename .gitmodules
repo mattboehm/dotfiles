@@ -100,3 +100,9 @@
 [submodule ".vim/bundle/unstack"]
 	path = .vim/bundle/unstack
 	url = https://github.com/mattboehm/vim-unstack.git
+[submodule ".vim/bundle/repeat"]
+	path = .vim/bundle/repeat
+	url = https://github.com/tpope/vim-repeat.git
+[submodule ".vim/bundle/nrrwrgn"]
+	path = .vim/bundle/nrrwrgn
+	url = https://github.com/chrisbra/NrrwRgn.git
