@@ -19,9 +19,6 @@
 [submodule ".vim/bundle/fugitive"]
 	path = .vim/bundle/fugitive
 	url = https://github.com/tpope/vim-fugitive.git
-[submodule "zsh/oh-my-zsh"]
-	path = zsh/oh-my-zsh
-	url = https://github.com/robbyrussell/oh-my-zsh.git
 [submodule ".vim/bundle/inkpot"]
 	path = .vim/bundle/inkpot
 	url = git://github.com/ciaranm/inkpot.git
