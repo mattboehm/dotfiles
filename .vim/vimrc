@@ -112,7 +112,7 @@ nnoremap <silent> <C-k> :cp<CR>
 "open vimrc in new tab
 "if ~/.vimrc is a symlink, it resolves the symlink before opening so that
 "fugitive is happy
-nnoremap <leader>ve :execute "tab sp" resolve(expand("~/.vimrc"))<CR>
+nnoremap <leader>ve :execute "tab sp" resolve(expand("~/.vim"))."/vimrc"<CR>
 "open pentadactyl config
 nnoremap <leader>vp :execute "tab sp" resolve(expand("~/.pentadactylrc"))<CR>
 "reload vimrc
