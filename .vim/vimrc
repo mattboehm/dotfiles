@@ -3,6 +3,7 @@ runtime bundle/pathogen/autoload/pathogen.vim
 call pathogen#infect()
 "}}}
 "Settings {{{
+set backspace=2
 set number 
 set hlsearch
 set background=dark
