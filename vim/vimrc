@@ -1,3 +1,120 @@
+"Plugins {{{
+call plug#begin()
+"Visuals:
+Plug 'bling/vim-airline'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'ciaranm/inkpot'
+Plug 'vim-scripts/wombat256.vim'
+
+"Text Objects:
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-indent'
+Plug 'bps/vim-textobj-python'
+Plug 'vim-scripts/argtextobj.vim'
+
+"Essentials: simple extensions of vim functionality
+Plug 'justinmk/vim-sneak'
+Plug 'tpope/vim-surround'
+Plug 'stefandtw/quickfix-reflector.vim'
+Plug 'tpope/vim-repeat'
+
+"Opening Files:
+Plug 'kien/ctrlp.vim' "{{{
+    nnoremap <leader>m :CtrlPMRUFiles<CR>
+    let g:ctrlp_map = ',f'
+    let g:ctrlp_working_path_mode = 2
+    let g:ctrlp_extensions = ['dir']
+    let g:ctrlp_custom_ignore = {
+    \ 'dir':  'public/js/lib$',
+    \ 'file': '\.exe$\|\.so$\|\.dll$|\.swp$|\.swo$|\.pyc$|\.orig$',
+    \ 'link': 'some_bad_symbolic_links',
+    \ }
+    "use git ls-files so that files in .gitignore aren't shown.
+    let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+
+    "}}}
+Plug 'mattboehm/vim-unstack' "{{{
+    nnoremap <silent> <c-u> :UnstackFromSelection<CR>
+    "}}}
+Plug 'tpope/vim-vinegar'
+
+"Expanding Text:
+Plug 'tristen/vim-sparkup'
+Plug 'SirVer/ultisnips' "{{{
+    let g:UltiSnipsExpandTrigger="<tab>"
+    let g:UltiSnipsJumpForwardTrigger="<tab>"
+    let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+    let g:UltiSnipsSnippetDirectories=["snippets"]
+    let g:ultisnips_python_style="sphinx"
+    "}}}
+
+"Other:
+Plug 'tpope/vim-fugitive' | Plug 'tommcdo/vim-fugitive-blame-ext' "{{{
+    "Fugitive mappings
+    nnoremap <leader>gs :Gstatus<CR>
+    nnoremap <leader>gc :Gcommit<CR>
+    nnoremap <leader>gd :Gdiff<CR>
+    nnoremap <leader>gw :Gwrite<CR>
+    nnoremap <leader>gr :Gread<CR>
+    nnoremap <leader>gl :Glog --reverse<CR>
+    nnoremap <leader>gp :Git push<CR>
+    nnoremap <leader>gb :Gblame<CR>
+    nnoremap <leader>gB :Gbrowse<CR>
+    nnoremap <leader>gP :Git push gitlab<CR>
+    nnoremap <leader>ga :tab sp \| Gvedit :1 \| windo diffthis<CR>
+
+    "Fugitive extensions
+    nnoremap <silent> <leader>gm :tab sp<CR>:Glistmod<CR>
+    nnoremap <silent> ]d :call g:DiffNextLoc()<CR>
+    nnoremap <silent> [d :call g:DiffPrevLoc()<CR>
+    function! g:ViewCommits(num_commits)
+        let commit=0
+        while commit < a:num_commits
+            execute "Gedit HEAD~".commit
+            topleft vsp
+            let commit += 1
+        endwhile
+        q
+    endfunction
+
+    command! Glistmod only | call g:ListModified() | Gdiff
+    function! g:ListModified()
+        let old_makeprg=&makeprg
+        "let &makeprg = "git diff --cached --name-only"
+        let &makeprg = "git ls-files -m"
+        let old_errorformat=&errorformat
+        let &errorformat="%f"
+        lmake
+        let &makeprg=old_makeprg
+        let &errorformat=old_errorformat
+    endfunction
+
+    function! g:DiffNextLoc()
+        windo set nodiff
+        only
+        lnext
+        Gdiff
+    endfunction
+    function! g:DiffPrevLoc()
+        windo set nodiff
+        only
+        lprevious
+        Gdiff
+    endfunction
+    "}}}
+Plug 'tpope/vim-fireplace'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/syntastic'
+Plug 'tpope/vim-dispatch'
+Plug 'mileszs/ack.vim' "{{{
+    nnoremap <leader>a :Ack<space>
+    "}}}
+Plug 'sjl/gundo.vim'
+Plug 'mattboehm/vim-accordion'
+Plug 'chrisbra/NrrwRgn'
+
+call plug#end()
+"}}}
 "Settings {{{
 set background=dark
 set backspace=2
@@ -15,7 +132,7 @@ filetype plugin on
 if has("gui_running")
   colorscheme inkpot
 else
-  colorscheme wombat256
+  colorscheme wombat256mod
 endif
 let mapleader=","
 let localleader="\\"
@@ -185,122 +302,5 @@ function! g:HighlightLine()
 	let g:highlightLineSignId += 1
 endfunction
 "}}}
-"}}}
-"Plugins {{{
-call plug#begin()
-"Visuals:
-Plug 'bling/vim-airline'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'ciaranm/inkpot'
-Plug 'vim-scripts/wombat256.vim'
-
-"Text Objects:
-Plug 'kana/vim-textobj-user'
-Plug 'kana/vim-textobj-indent'
-Plug 'bps/vim-textobj-python'
-Plug 'vim-scripts/argtextobj.vim'
-
-"Essentials: simple extensions of vim functionality
-Plug 'justinmk/vim-sneak'
-Plug 'tpope/vim-surround'
-Plug 'stefandtw/quickfix-reflector.vim'
-Plug 'tpope/vim-repeat'
-
-"Opening Files:
-Plug 'kien/ctrlp.vim' "{{{
-    nnoremap <leader>m :CtrlPMRUFiles<CR>
-    let g:ctrlp_map = ',f'
-    let g:ctrlp_working_path_mode = 2
-    let g:ctrlp_extensions = ['dir']
-    let g:ctrlp_custom_ignore = {
-    \ 'dir':  'public/js/lib$',
-    \ 'file': '\.exe$\|\.so$\|\.dll$|\.swp$|\.swo$|\.pyc$|\.orig$',
-    \ 'link': 'some_bad_symbolic_links',
-    \ }
-    "use git ls-files so that files in .gitignore aren't shown.
-    let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-
-    "}}}
-Plug 'mattboehm/vim-unstack' "{{{
-    nnoremap <silent> <c-u> :UnstackFromSelection<CR>
-    "}}}
-Plug 'tpope/vim-vinegar'
-
-"Expanding Text:
-Plug 'tristen/vim-sparkup'
-Plug 'SirVer/ultisnips' "{{{
-    let g:UltiSnipsExpandTrigger="<tab>"
-    let g:UltiSnipsJumpForwardTrigger="<tab>"
-    let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-    let g:UltiSnipsSnippetDirectories=["snippets"]
-    let g:ultisnips_python_style="sphinx"
-    "}}}
-
-"Other:
-Plug 'tpope/vim-fugitive' | Plug 'tommcdo/vim-fugitive-blame-ext' "{{{
-    "Fugitive mappings
-    nnoremap <leader>gs :Gstatus<CR>
-    nnoremap <leader>gc :Gcommit<CR>
-    nnoremap <leader>gd :Gdiff<CR>
-    nnoremap <leader>gw :Gwrite<CR>
-    nnoremap <leader>gr :Gread<CR>
-    nnoremap <leader>gl :Glog --reverse<CR>
-    nnoremap <leader>gp :Git push<CR>
-    nnoremap <leader>gb :Gblame<CR>
-    nnoremap <leader>gB :Gbrowse<CR>
-    nnoremap <leader>gP :Git push gitlab<CR>
-    nnoremap <leader>ga :tab sp \| Gvedit :1 \| windo diffthis<CR>
-
-    "Fugitive extensions
-    nnoremap <silent> <leader>gm :tab sp<CR>:Glistmod<CR>
-    nnoremap <silent> ]d :call g:DiffNextLoc()<CR>
-    nnoremap <silent> [d :call g:DiffPrevLoc()<CR>
-    function! g:ViewCommits(num_commits)
-        let commit=0
-        while commit < a:num_commits
-            execute "Gedit HEAD~".commit
-            topleft vsp
-            let commit += 1
-        endwhile
-        q
-    endfunction
-
-    command! Glistmod only | call g:ListModified() | Gdiff
-    function! g:ListModified()
-        let old_makeprg=&makeprg
-        "let &makeprg = "git diff --cached --name-only"
-        let &makeprg = "git ls-files -m"
-        let old_errorformat=&errorformat
-        let &errorformat="%f"
-        lmake
-        let &makeprg=old_makeprg
-        let &errorformat=old_errorformat
-    endfunction
-
-    function! g:DiffNextLoc()
-        windo set nodiff
-        only
-        lnext
-        Gdiff
-    endfunction
-    function! g:DiffPrevLoc()
-        windo set nodiff
-        only
-        lprevious
-        Gdiff
-    endfunction
-    "}}}
-Plug 'tpope/vim-fireplace'
-Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/syntastic'
-Plug 'tpope/vim-dispatch'
-Plug 'mileszs/ack.vim' "{{{
-    nnoremap <leader>a :Ack<space>
-    "}}}
-Plug 'sjl/gundo.vim'
-Plug 'mattboehm/vim-accordion'
-Plug 'chrisbra/NrrwRgn'
-
-call plug#end()
 "}}}
 " vim:foldmethod=marker
