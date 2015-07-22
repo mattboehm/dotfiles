@@ -41,6 +41,7 @@ call plug#begin()
 "Visuals:
 Plug 'bling/vim-airline'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'osyo-manga/vim-brightest'
 Plug 'ciaranm/inkpot'
 Plug 'vim-scripts/wombat256.vim'
 
