@@ -1,3 +1,41 @@
+"Settings {{{
+set background=dark
+set backspace=2
+set display+=lastline
+set hlsearch
+set modeline
+set mouse=a
+set number 
+set t_Co=256
+
+let mapleader=","
+let localleader="\\"
+
+syntax on
+filetype plugin on
+
+" Backups {{{
+" (thanks Steve Losh)
+set backup
+set swapfile
+set undofile
+
+set undodir=~/.vim/tmp/undo//
+set backupdir=~/.vim/tmp/backup//
+set directory=~/.vim/tmp/swap//
+
+" Make those folders automatically if they don't already exist.
+if !isdirectory(expand(&undodir))
+    call mkdir(expand(&undodir), "p")
+endif
+if !isdirectory(expand(&backupdir))
+    call mkdir(expand(&backupdir), "p")
+endif
+if !isdirectory(expand(&directory))
+    call mkdir(expand(&directory), "p")
+endif
+"}}}
+"}}}
 "Plugins {{{
 call plug#begin()
 "Visuals:
@@ -51,7 +89,6 @@ Plug 'SirVer/ultisnips' "{{{
 "Other:
 Plug 'tpope/vim-fugitive' | Plug 'tommcdo/vim-fugitive-blame-ext' "{{{
     "Fugitive mappings
-    nnoremap <leader>gs :Gstatus<CR>
     nnoremap <leader>gc :Gcommit<CR>
     nnoremap <leader>gd :Gdiff<CR>
     nnoremap <leader>gw :Gwrite<CR>
@@ -115,48 +152,12 @@ Plug 'chrisbra/NrrwRgn'
 
 call plug#end()
 "}}}
-"Settings {{{
-set background=dark
-set backspace=2
-set display+=lastline
-set hlsearch
-set modeline
-set mouse=a
-set number 
-set t_Co=256
-
-syntax on
-filetype plugin on
-
-"color schemes
+"Color schemes {{{
 if has("gui_running")
   colorscheme inkpot
 else
   colorscheme wombat256mod
 endif
-let mapleader=","
-let localleader="\\"
-" Backups {{{
-" (thanks Steve Losh)
-set backup
-set swapfile
-set undofile
-
-set undodir=~/.vim/tmp/undo//
-set backupdir=~/.vim/tmp/backup//
-set directory=~/.vim/tmp/swap//
-
-" Make those folders automatically if they don't already exist.
-if !isdirectory(expand(&undodir))
-    call mkdir(expand(&undodir), "p")
-endif
-if !isdirectory(expand(&backupdir))
-    call mkdir(expand(&backupdir), "p")
-endif
-if !isdirectory(expand(&directory))
-    call mkdir(expand(&directory), "p")
-endif
-"}}}
 "}}}
 "Key mapping {{{
 nnoremap ; :
