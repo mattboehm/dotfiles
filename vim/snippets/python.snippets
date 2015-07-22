@@ -1,0 +1,21 @@
+snippet #! "header" b
+#!/usr/bin/env python
+endsnippet
+
+snippet im "ifmain" b
+def main():
+	$1
+
+if __name__ == "__main__":
+	main()
+endsnippet
+
+snippet f "function" b
+def ${1:foo}($2):
+	${3:pass}
+endsnippet
+
+snippet i "if" b
+if $1:
+	${VISUAL}
+endsnippet
