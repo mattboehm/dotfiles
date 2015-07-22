@@ -8,6 +8,7 @@ SOURCE_PATH = os.path.dirname(os.path.realpath(__file__))
 TARGET_PATH = os.path.expanduser("~")
 PATHS_TO_INSTALL = [
     ("vim", ".vim"),
+    ("vim", ".nvim"),
     ("bash/.bashrc", ".bashrc"),
     ("git/gitconfig", ".gitconfig"),
 ]
