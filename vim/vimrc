@@ -91,6 +91,7 @@ Plug 'SirVer/ultisnips' "{{{
 "Other:
 Plug 'tpope/vim-fugitive' | Plug 'tommcdo/vim-fugitive-blame-ext' "{{{
     "Fugitive mappings
+    nnoremap <leader>gs :Gstatus<CR>
     nnoremap <leader>gc :Gcommit<CR>
     nnoremap <leader>gd :Gdiff<CR>
     nnoremap <leader>gw :Gwrite<CR>
@@ -99,7 +100,6 @@ Plug 'tpope/vim-fugitive' | Plug 'tommcdo/vim-fugitive-blame-ext' "{{{
     nnoremap <leader>gp :Git push<CR>
     nnoremap <leader>gb :Gblame<CR>
     nnoremap <leader>gB :Gbrowse<CR>
-    nnoremap <leader>gP :Git push gitlab<CR>
     nnoremap <leader>ga :tab sp \| Gvedit :1 \| windo diffthis<CR>
 
     "Fugitive extensions
