@@ -151,6 +151,7 @@ Plug 'mileszs/ack.vim' "{{{
 Plug 'sjl/gundo.vim'
 Plug 'mattboehm/vim-accordion'
 Plug 'chrisbra/NrrwRgn'
+Plug 'editorconfig/editorconfig-vim'
 
 call plug#end()
 "}}}
