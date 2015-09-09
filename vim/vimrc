@@ -79,7 +79,7 @@ Plug 'mattboehm/vim-unstack' "{{{
 Plug 'tpope/vim-vinegar'
 
 "Expanding Text:
-Plug 'tristen/vim-sparkup'
+Plug 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plug 'SirVer/ultisnips' "{{{
     let g:UltiSnipsExpandTrigger="<tab>"
     let g:UltiSnipsJumpForwardTrigger="<tab>"
@@ -152,6 +152,8 @@ Plug 'sjl/gundo.vim'
 Plug 'mattboehm/vim-accordion'
 Plug 'chrisbra/NrrwRgn'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'alfredodeza/coveragepy.vim'
+Plug 'mattboehm/Vim-Jinja2-Syntax' "switching to my fork as it sets filetype to jinja.html
 
 call plug#end()
 "}}}
