@@ -75,7 +75,7 @@ Plug 'kien/ctrlp.vim' "{{{
 
     "}}}
 Plug 'mattboehm/vim-unstack' "{{{
-    nnoremap <silent> <c-u> :UnstackFromSelection<CR>
+    nnoremap <silent> <leader>u :UnstackFromSelection<CR>
     "}}}
 Plug 'tpope/vim-vinegar'
 
