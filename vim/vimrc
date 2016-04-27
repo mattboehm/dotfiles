@@ -155,7 +155,8 @@ Plug 'chrisbra/NrrwRgn'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'alfredodeza/coveragepy.vim'
 Plug 'mattboehm/Vim-Jinja2-Syntax' "switching to my fork as it sets filetype to jinja.html
-
+Plug 'cohama/lexima.vim' "auto-close parens/quotes/etc.  
+Plug 'kassio/neoterm'
 call plug#end()
 "}}}
 "Color schemes {{{
