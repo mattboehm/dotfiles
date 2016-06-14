@@ -29,8 +29,13 @@
 	list-aliases = config --get-regexp '^alias\\.'
 	#NOTE: only works with 'git@github.com:' style urls (not https)
 	get-url = !"git config --get remote.origin.url | python -c 'from __future__ import print_function;import sys;print(\"https://github.com/{}\".format(sys.stdin.read().split(\":\")[1][:-5]))'"
+
+	#Open github url for making new pull request. Can pass base branch as argument
 	make-pr = "!f() { open \"`git get-url`/compare/${1:-master}...`git cb`\"; }; f"
 	mp = make-pr
+
+	#Open github url for viewing a file/directory on the current branch
+	browse = "!f() { open \"`git get-url`/tree/`git cb`/$1\"; }; f"
 
 	#log formats
 	#changes
