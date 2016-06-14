@@ -4,7 +4,9 @@ alias tn='tmux -2 new -s '
 alias ta='tmux -2 attach -t '
 alias tl='tmux ls'
 
-export PS1="}}}\n\t \w [\j] {{{\n"
+export PS1="}}}\n\t \w [\j] {{{"
+export EDITOR="vim"
+export WORKON_HOME=~/envs
 
 #source the local bashrc file if it exists
 if [ -f ~/.bashrc.local ]; then
