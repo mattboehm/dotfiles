@@ -243,8 +243,15 @@ nnoremap <leader>vv :source ~/.vim/vimrc<CR>
 "edit snippets
 nnoremap <leader>vs :tab sp <bar> UltiSnipsEdit<CR>
 
+"Redo the syntax highlighting
+nnoremap <leader>U :syntax sync fromstart<cr>:redraw!<cr>
+
 "F2 toggles line numbers
 nnoremap <silent> <F2> :set number!<CR>
+
+"save a copy of this file in the current dir with the same extension and hit
+"enter. after the combo, just type the new name without the extension
+nnoremap <leader>C :saveas %:h/.%:e<left><left><left><left>
 
 "F5 run python
 nnoremap <F5> :!python %<CR>
