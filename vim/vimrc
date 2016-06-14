@@ -75,7 +75,7 @@ Plug 'kien/ctrlp.vim' "{{{
 
     "}}}
 Plug 'mattboehm/vim-unstack' "{{{
-    nnoremap <silent> <leader>u :UnstackFromSelection<CR>
+    xnoremap <silent> <leader>u :UnstackFromSelection<CR>
     "}}}
 Plug 'tpope/vim-vinegar'
 
@@ -239,7 +239,7 @@ nnoremap <leader>vf :execute "tab sp" resolve(expand("~/.pentadactylrc"))<CR>
 nnoremap <leader>vp :execute "tab sp" resolve(expand("~/.vim/bundle/mbpython/ftplugin/python.vim"))<CR>
 
 "reload vimrc
-nnoremap <leader>vv :source ~/.vimrc<CR>
+nnoremap <leader>vv :source ~/.vim/vimrc<CR>
 "edit snippets
 nnoremap <leader>vs :tab sp <bar> UltiSnipsEdit<CR>
 
