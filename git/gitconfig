@@ -4,15 +4,24 @@
 [github]
         user = mattboehm
 [alias]
+	#Note that some of these aliases depend on external commands (i.e. python, open, parallel, sed)
         st = status
         cm = commit
         in = fetch --dry-run
         co = checkout
         cob = checkout -b
-	cop = !git checkout `git prev-branch`
         br = branch -av
         bd = branch --delete
-        cb = !git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \\(.*\\)/\\1/'
+
+	# Get the branch we're currently on
+	current-branch = !git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \\(.*\\)/\\1/'
+
+	#Get the branch we were previously on
+	prev-branch = "!git reflog | head -50 | sed -n 's_^.*moving from \\(.*\\) to \\(.*\\)_\\1_p' | grep -v \"^`git cb`$\" | head -1"
+	#Check out the last branch we were on
+	cop = !git checkout `git prev-branch`
+
+        cb = current-branch
         pl = pull
 	pr = pull --rebase
         ps = push
@@ -21,13 +30,21 @@
         dc = diff --cached
         r = remote
 	su = submodule update
+
 	#pipe a list of commits to it and list any branches that contain those commits
-	lb = !parallel 'git branch --contains {}' | sort | uniq
-	list-branches = lb
-	lba = !parallel 'git branch -a --contains {}' | sort | uniq
+	list-branches = !parallel 'git branch --contains {}' | sort | uniq
+	lb = list-branches
+	list-branches-all = !parallel 'git branch -a --contains {}' | sort | uniq
+	lba = list-branches-all
+
+	# Set the upstream branch. When you do `git checkout -b <branch>`, there is no upstream set, so `git pb` will fail.
+	# This corrects that problem.
 	set-upstream = !git branch --set-upstream-to=origin/`git cb` `git cb`
 
+	# List all the git aliases
 	list-aliases = config --get-regexp '^alias\\.'
+
+	# Get the base github url for this repo
 	#NOTE: only works with 'git@github.com:' style urls (not https)
 	get-url = !"git config --get remote.origin.url | python -c 'from __future__ import print_function;import sys;print(\"https://github.com/{}\".format(sys.stdin.read().split(\":\")[1][:-5]))'"
 
@@ -35,35 +52,40 @@
 	make-pr = "!f() { open \"`git get-url`/compare/${1:-master}...`git cb`\"; }; f"
 	mp = make-pr
 
-	#get top files edited in same commit as given file
+	# Get top files edited in same commit as given file
 	related = "!f() { git lc -- $GIT_PREFIX/$1 | parallel 'git log -1 --pretty=format:\"\" --name-status {}' | grep -v \"^$\" | cut -f2 | sort | uniq -c | sort -n -r | head -15; }; f"
 
-	#Open github url for viewing a file/directory on the current branch
+	# Open github url for viewing a file/directory on the current branch
 	browse = "!f() { open \"`git get-url`/tree/`git cb`/$GIT_PREFIX/$1\"; }; f"
 
+	# Look at the top stash entry, switch back to that branch, and pop the entry off
 	pops = "!f() { git checkout `git stash list | head -1 | sed -n 's_^stash\\@{[0-9]*}: WIP on \\([^:]*\\):.*_\\1_p'`; git stash pop; }; f"
 
-	#Get the branch we were previously on
-	prev-branch = "!git reflog | head -50 | sed -n 's_^.*moving from \\(.*\\) to \\(.*\\)_\\1_p' | grep -v \"^`git cb`$\" | head -1"
 
-	#log formats
-	#changes
+	autosquash = !GIT_SEQUENCE_EDITOR="cat" git rebase --autosquash -i HEAD~2
+	fixup = !git commit --fixup=HEAD
+
+	##### Log formats
+	# changes
         ch = log --pretty=format:\"%h %cr %Cblue%cn%Creset %Cgreen%s%Creset\" --name-status
-	#short (hash, date, name, message on one line
+
+	# short (hash, date, name, message on one line
         sh = log --pretty=format:\"%h %cr %Cblue%cn%Creset %Cgreen%s%Creset\"
+
+	# just the commit hash
         lc = log --no-color --pretty=format:\"%h\"
 
 	#changes in master not in this branch
         bin = !git ch --cherry `git cb`...master
+
 	#changes in this branch not in master
         bout = !git ch --cherry master...`git cb`
+
 	#changes in remote not in local
         rin = !git ch --cherry `git cb`...origin/`git cb`
+
 	#changes in local not in remote
         rout = !git ch --cherry origin/`git cb`...`git cb`
-
-	autosquash = !GIT_SEQUENCE_EDITOR="cat" git rebase --autosquash -i HEAD~2
-	fixup = !git commit --fixup=HEAD
 
 [color]
         ui = auto
