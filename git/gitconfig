@@ -21,7 +21,7 @@
 	#Check out the last branch we were on
 	cop = !git checkout `git prev-branch`
 
-        cb = current-branch
+        cb = !git current-branch
         pl = pull
 	pr = pull --rebase
         ps = push
@@ -33,9 +33,9 @@
 
 	#pipe a list of commits to it and list any branches that contain those commits
 	list-branches = !parallel 'git branch --contains {}' | sort | uniq
-	lb = list-branches
+	lb = !git list-branches
 	list-branches-all = !parallel 'git branch -a --contains {}' | sort | uniq
-	lba = list-branches-all
+	lba = !git list-branches-all
 
 	# Set the upstream branch. When you do `git checkout -b <branch>`, there is no upstream set, so `git pb` will fail.
 	# This corrects that problem.
@@ -50,7 +50,7 @@
 
 	#Open github url for making new pull request. Can pass base branch as argument
 	make-pr = "!f() { open \"`git get-url`/compare/${1:-master}...`git cb`\"; }; f"
-	mp = make-pr
+	mp = !git make-pr
 
 	# Get top files edited in same commit as given file
 	related = "!f() { git lc -- $GIT_PREFIX/$1 | parallel 'git log -1 --pretty=format:\"\" --name-status {}' | grep -v \"^$\" | cut -f2 | sort | uniq -c | sort -n -r | head -15; }; f"
