@@ -39,7 +39,7 @@
 	related = "!f() { git lc -- $GIT_PREFIX/$1 | parallel 'git log -1 --pretty=format:\"\" --name-status {}' | grep -v \"^$\" | cut -f2 | sort | uniq -c | sort -n -r | head -15; }; f"
 
 	#Open github url for viewing a file/directory on the current branch
-	browse = "!f() { open \"`git get-url`/tree/`git cb`/$1\"; }; f"
+	browse = "!f() { open \"`git get-url`/tree/`git cb`/$GIT_PREFIX/$1\"; }; f"
 
 	pops = "!f() { git checkout `git stash list | head -1 | sed -n 's_^stash\\@{[0-9]*}: WIP on \\([^:]*\\):.*_\\1_p'`; git stash pop; }; f"
 
