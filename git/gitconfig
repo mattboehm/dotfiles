@@ -9,6 +9,7 @@
         in = fetch --dry-run
         co = checkout
         cob = checkout -b
+	cop = !git checkout `git prev-branch`
         br = branch -av
         bd = branch --delete
         cb = !git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \\(.*\\)/\\1/'
@@ -34,8 +35,16 @@
 	make-pr = "!f() { open \"`git get-url`/compare/${1:-master}...`git cb`\"; }; f"
 	mp = make-pr
 
+	#get top files edited in same commit as given file
+	related = "!f() { git lc -- $GIT_PREFIX/$1 | parallel 'git log -1 --pretty=format:\"\" --name-status {}' | grep -v \"^$\" | cut -f2 | sort | uniq -c | sort -n -r | head -15; }; f"
+
 	#Open github url for viewing a file/directory on the current branch
 	browse = "!f() { open \"`git get-url`/tree/`git cb`/$1\"; }; f"
+
+	pops = "!f() { git checkout `git stash list | head -1 | sed -n 's_^stash\\@{[0-9]*}: WIP on \\([^:]*\\):.*_\\1_p'`; git stash pop; }; f"
+
+	#Get the branch we were previously on
+	prev-branch = "!git reflog | head -50 | sed -n 's_^.*moving from \\(.*\\) to \\(.*\\)_\\1_p' | grep -v \"^`git cb`$\" | head -1"
 
 	#log formats
 	#changes
