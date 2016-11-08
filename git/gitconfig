@@ -16,8 +16,12 @@
 	# Get the branch we're currently on
 	current-branch = !git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \\(.*\\)/\\1/'
 
+	# Get branches we were recently on
+	recent-branches = "!git reflog | sed -n -e 's_^.*moving from \\(.*\\) to \\(.*\\)_\\1_p' | head -20"
+	rb = !git recent-branches
+
 	#Get the branch we were previously on
-	prev-branch = "!git reflog | head -50 | sed -n 's_^.*moving from \\(.*\\) to \\(.*\\)_\\1_p' | grep -v \"^`git cb`$\" | head -1"
+	prev-branch = "!git recent-branches | head -1"
 	#Check out the last branch we were on
 	cop = !git checkout `git prev-branch`
 
