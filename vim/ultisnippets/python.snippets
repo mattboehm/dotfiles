@@ -4,7 +4,7 @@ endsnippet
 
 snippet im "ifmain" b
 def main():
-	$1
+	${VISUAL}$1
 
 if __name__ == "__main__":
 	main()
@@ -17,5 +17,18 @@ endsnippet
 
 snippet i "if" b
 if $1:
+	${VISUAL}
+endsnippet
+
+snippet ip "import print" b
+from __future__ import print_function
+endsnippet
+
+snippet p "print" b
+print($1)
+endsnippet
+
+snippet ff "for loop" b
+for x in range(${1}):
 	${VISUAL}
 endsnippet
