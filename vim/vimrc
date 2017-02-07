@@ -142,6 +142,7 @@ Plug 'tpope/vim-fugitive' | Plug 'tommcdo/vim-fugitive-blame-ext' "{{{
         Gdiff
     endfunction
     "}}}
+Plug 'junegunn/gv.vim'
 Plug 'tpope/vim-fireplace'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/syntastic'
@@ -155,9 +156,16 @@ Plug 'chrisbra/NrrwRgn'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'alfredodeza/coveragepy.vim'
 Plug 'mattboehm/Vim-Jinja2-Syntax' "switching to my fork as it sets filetype to jinja.html
-Plug 'cohama/lexima.vim' "auto-close parens/quotes/etc.  
 Plug 'kassio/neoterm'
 call plug#end()
+"}}}
+"FileType settings {{{
+augroup mb_filetype
+	autocmd!
+	autocmd FileType brainfuck xmap <buffer> R "xygv*;%s;;<c-r>x;g<left><left>
+	autocmd FileType yaml nnoremap <buffer> <CR> :AnsibleDoc<CR>
+	autocmd FileType python iabbrev <buffer> im import
+augroup end
 "}}}
 "Color schemes {{{
 if has("gui_running")
@@ -246,6 +254,10 @@ nnoremap <leader>vs :tab sp <bar> UltiSnipsEdit<CR>
 "Redo the syntax highlighting
 nnoremap <leader>U :syntax sync fromstart<cr>:redraw!<cr>
 
+"Replace current search term globally (or in selection)
+nnoremap <leader>r :%s;;;g<left><left>
+xnoremap <leader>r :s;;;g<left><left>
+
 "F2 toggles line numbers
 nnoremap <silent> <F2> :set number!<CR>
 
@@ -297,6 +309,12 @@ command! Demo cd ~/repos/crashcart/plugin | so unstack.vim | so ../../accordion/
 
 "SetQfList: copy the loclist to the qflist
 command! SetQfList call setqflist(getloclist(0))
+
+"AnsibleDoc: Get the ansible documentation for the word under the cursor
+command! AnsibleDoc tab sp | let ztmp=@z | exe 'norm "zyiw' | vnew | exe 'ScratchBuffer' | exe 'r! ansible-doc '.@z | let @z = ztmp | norm ggdd
+
+"Presentation: Settings for a presentation
+command! Presentation highlight Hidden ctermfg=black ctermbg=none | syntax match Hidden /{{{/ | syntax match Hidden /}}}/ | exe 'nnore <s-down> zczjzozt' | exe 'nnore <s-up> zczk%zozt'
 
 "Pylog {{{
 function! g:PylogShortcuts()
