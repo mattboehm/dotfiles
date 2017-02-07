@@ -1,0 +1,53 @@
+{{{Vim Magic
+(and how to grow with your text editor)
+
+}}}
+{{{Disclaimer
+
+There are plenty of great tools out there.
+This is just one person's experience with one tool.
+}}}
+{{{What makes a tool great?
+
+{{{     Consistent principles behind the design
+
+            Keyboard-centric with focus on minimizing key strokes
+{{{         "The language of Vim"
+
+		Verbs:
+		    (y)ank
+		    (d)elete
+		    (c)hange
+		    (><) indent/dedent
+		    (~) change case
+
+		Nouns:
+		    iw	inside word
+		    i"	inside quotes
+		    a"	around quotes
+		    at	around tag (<b>text</b>)
+		    tx	until the next "x" on the line
+}}}
+}}}
+{{{     Empowers the user
+
+	    Block-insert mode
+            Macros
+	    Shell interaction
+	    Flexible window management
+}}}
+{{{     Can be customized to best suit the user
+        
+	    Remappings
+	    Settings
+	    Plugins
+}}}
+}}}
+{{{Growing with vim
+        Learn the basics
+	If you suspect there's a better way, look it up
+        Remap some keys
+	Try out some plugins
+	Get comfortable with customizing on the fly
+}}}
+" vim: foldmethod=marker nonumber foldtext=substitute(getline(v\:foldstart),"{{{",'\ \ \ ','').'\ '
