@@ -165,6 +165,7 @@ augroup mb_filetype
 	autocmd FileType brainfuck xmap <buffer> R "xygv*;%s;;<c-r>x;g<left><left>
 	autocmd FileType yaml nnoremap <buffer> <CR> :AnsibleDoc<CR>
 	autocmd FileType python iabbrev <buffer> im import
+	autocmd FileType python nnoremap <buffer> <cr> :silent w<bar>only<bar>vsp<bar>term ipython3 -i %<cr>
 augroup end
 "}}}
 "Color schemes {{{
