@@ -8,6 +8,12 @@ set mouse=a
 set number 
 set t_Co=256
 set laststatus=2
+set exrc
+set secure
+
+set completeopt+=menuone
+set completeopt+=noinsert
+set completeopt-=preview
 
 let mapleader=","
 let localleader="\\"
@@ -15,6 +21,9 @@ let localleader="\\"
 syntax on
 filetype plugin on
 
+if has("nvim")
+  set inccommand=split
+endif
 " Backups {{{
 " (thanks Steve Losh)
 set backup
@@ -39,27 +48,77 @@ endif
 "}}}
 "Plugins {{{
 call plug#begin()
+"Clear highlighted search term when cursor moves
+Plug 'haya14busa/is.vim'
+"Highlight all results when using incsearch
+Plug 'haya14busa/incsearch.vim'
+Plug 'osyo-manga/vim-anzu' "{{{
+map n <Plug>(is-nohl)<Plug>(anzu-n-with-echo)
+map N <Plug>(is-nohl)<Plug>(anzu-N-with-echo)
+"}}}
+"Test framework for vim script
+Plug 'junegunn/vader.vim'
 "Visuals:
 Plug 'bling/vim-airline'
 Plug 'nathanaelkane/vim-indent-guides'
+"Highlight all occurrences of the word under the cursor
 Plug 'osyo-manga/vim-brightest'
+"Colorscheme
 Plug 'ciaranm/inkpot'
+"Colorscheme
 Plug 'vim-scripts/wombat256.vim'
+"Decorate vim with fancy unicode characters. May delete.
+Plug 'ryanoasis/vim-devicons'
 
 "Text Objects:
+"Utilities for user-defined text objects
 Plug 'kana/vim-textobj-user'
+"Text objects for indentation levels
 Plug 'kana/vim-textobj-indent'
+"Text objects for Python
 Plug 'bps/vim-textobj-python'
+"Text objects for arguments
 Plug 'vim-scripts/argtextobj.vim'
+"'in' text objects, e.g. vin" to select inside next quotes (multi-line)
 Plug 'wellle/targets.vim'
 
 "Essentials: simple extensions of vim functionality
-Plug 'justinmk/vim-sneak'
+"Like f, but you provide 2 characters instead of 1
+"Provides improvements to f/t
+Plug 'justinmk/vim-sneak' "{{{
+let g:sneak#s_next = 1
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
+"}}}
+"Motions for "surrounding" characters
 Plug 'tpope/vim-surround'
+"Edit your quickfix list as if it were a buffer
 Plug 'stefandtw/quickfix-reflector.vim'
+"Enable multi-edit operations like vim-surround's to be repeated with a single '.'
 Plug 'tpope/vim-repeat'
+"<c-a>/<c-x> to increment/decrement dates
+Plug 'tpope/vim-speeddating'
+"<c-a>/<c-x> to toggle between true/false and others
+Plug 'andrewradev/switch.vim' "{{{
+	let g:switch_mapping = ""
+	" Don't use default mappings
+	let g:speeddating_no_mappings = 1
+
+	" Avoid issues because of us remapping <c-a> and <c-x> below
+	nnoremap <Plug>SpeedDatingFallbackUp <c-a>
+	nnoremap <Plug>SpeedDatingFallbackDown <c-x>
+
+	" Manually invoke speeddating in case switch didn't work
+	nnoremap <c-a> :if !switch#Switch() <bar>
+	      \ call speeddating#increment(v:count1) <bar> endif<cr>
+	nnoremap <c-x> :if !switch#Switch({'reverse': 1}) <bar>
+	      \ call speeddating#increment(-v:count1) <bar> endif<cr>
+"}}}
 
 "Opening Files:
+"Fuzzy file opener
 Plug 'kien/ctrlp.vim' "{{{
     nnoremap <leader>m :CtrlPMRUFiles<CR>
     let g:ctrlp_map = ',f'
@@ -74,13 +133,17 @@ Plug 'kien/ctrlp.vim' "{{{
     let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
     "}}}
+"Open stack traces in splits
 Plug 'mattboehm/vim-unstack' "{{{
     xnoremap <silent> <leader>u :UnstackFromSelection<CR>
     "}}}
+"Browse parent directory with '-'
 Plug 'tpope/vim-vinegar'
 
 "Expanding Text:
+"Quickly write html
 Plug 'rstacruz/sparkup', {'rtp': 'vim/'}
+"Snippets
 Plug 'SirVer/ultisnips' "{{{
     let g:UltiSnipsExpandTrigger="<tab>"
     let g:UltiSnipsJumpForwardTrigger="<tab>"
@@ -90,6 +153,7 @@ Plug 'SirVer/ultisnips' "{{{
     "}}}
 
 "Other:
+"Git integration
 Plug 'tpope/vim-fugitive' | Plug 'tommcdo/vim-fugitive-blame-ext' "{{{
     "Fugitive mappings
     nnoremap <leader>gs :Gstatus<CR>
@@ -142,21 +206,73 @@ Plug 'tpope/vim-fugitive' | Plug 'tommcdo/vim-fugitive-blame-ext' "{{{
         Gdiff
     endfunction
     "}}}
+"Git commit browser
 Plug 'junegunn/gv.vim'
-Plug 'tpope/vim-fireplace'
+"Common unix commands in vim, e.g. :Move to rename a buffer and move the file
+"on disk simultaneously
+Plug 'tpope/vim-eunuch'
+"Toggle comments
 Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/syntastic'
-Plug 'tpope/vim-dispatch'
-Plug 'mileszs/ack.vim' "{{{
-    nnoremap <leader>a :Ack<space>
-    "}}}
+"Improved grep
+Plug 'jremmen/vim-ripgrep' "{{{
+    nnoremap <leader>a :Rg<space>
+"}}}
+"Visually browse undo history
 Plug 'sjl/gundo.vim'
+"Window manager for splits
 Plug 'mattboehm/vim-accordion'
+"Only edit part of a file. May remove.
 Plug 'chrisbra/NrrwRgn'
+"Support .editorconfig files
 Plug 'editorconfig/editorconfig-vim'
+"Coverage.py integration
 Plug 'alfredodeza/coveragepy.vim'
 Plug 'mattboehm/Vim-Jinja2-Syntax' "switching to my fork as it sets filetype to jinja.html
+"Preview markdown rendering in a browser window
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+"Enable .lvimrc files
+Plug 'embear/vim-localvimrc' "{{{
+  let g:localvimrc_persistent=1
+"}}}
+"Commands for interacting with a terminal
 Plug 'kassio/neoterm'
+let g:python_highlight_string_format=1
+Plug 'w0rp/ale'
+Plug 'sbdchd/neoformat' "{{{
+  "let g:neoformat_javascript_eslint = {
+            "\ 'exe': '/Users/a-mboehm/repos/viserion/node_modules/eslint/bin/eslint.js',
+            "\ 'args': ['--fix'],
+            "\ 'replace': 0,
+            "\ 'stdin': 0,
+            "\ 'env': [],
+            "\ 'valid_exit_codes': [0],
+            "\ }
+
+"let g:neoformat_enabled_javascript = ['eslint']
+augroup NeoformatAutoFormat
+  autocmd!
+  autocmd FileType javascript setlocal formatprg=prettier\
+                                          \--stdin\
+                                          \--print-width\ 80\
+                                          \--no-semi\
+
+  autocmd BufWritePre *.js,*.jsx,*.json Neoformat
+augroup END
+"}}}
+Plug 'majutsushi/tagbar' "{{{
+	let g:tagbar_type_clojure = {'ctagstype': 'clojure', 'kinds': ['n:namespace', 'c:define (once)', 'd:define', 'f:function']}
+"}}}
+Plug 'vimwiki/vimwiki' "{{{
+let g:vimwiki_template_path="~/.vim/vimwiki-templates"
+"Auto-export to HTML on save
+augroup vimwiki_custom
+	autocmd!
+	autocmd BufWritePost *.wiki silent Vimwiki2HTML
+augroup end
+"}}}
+"Kite settings {{{
+let g:kite_tab_complete=1
+"}}}
 call plug#end()
 "}}}
 "FileType settings {{{
@@ -165,6 +281,11 @@ augroup mb_filetype
 	autocmd FileType brainfuck xmap <buffer> R "xygv*;%s;;<c-r>x;g<left><left>
 	autocmd FileType yaml nnoremap <buffer> <CR> :AnsibleDoc<CR>
 	autocmd FileType python iabbrev <buffer> im import
+	autocmd FileType python iabbrev <buffer> rt return
+	autocmd FileType python iabbrev <buffer> yl yield
+	autocmd FileType python iabbrev <buffer> fa False
+	autocmd FileType python iabbrev <buffer> tr True
+	autocmd FileType python iabbrev <buffer> br break
 	autocmd FileType python nnoremap <buffer> <cr> :silent w<bar>only<bar>vsp<bar>term ipython3 -i %<cr>
 augroup end
 "}}}
@@ -185,6 +306,15 @@ inoremap jj <esc>
 "h is in the j position on dvorak keyboards
 inoremap hh <esc>
 
+"in insert mode, qq opens the preview window to the word just typed
+inoremap qq <esc>b:ptag <c-r><c-w><cr><c-w>Pzt<c-w>pgi
+
+"select previous/next matching word
+"not sure yet if these key combos are rare enough in insert mode
+inoremap ,. <c-p><c-y>
+inoremap ., <c-n><c-y>
+inoremap oeu <c-x><c-l>
+
 "x escapes visual mode
 xnoremap x <Esc>
 "vv selects til end of line (not incl newline)
@@ -197,6 +327,9 @@ nnoremap Y y$
 
 "complete lines
 inoremap <C-Space> <C-X><C-L>
+
+"gp selects code that was just pasted in the visual mode last used
+nnoremap <expr> gp  '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 "clear highlight search
 nmap <silent> <leader><space> :nohlsearch<CR>
@@ -250,14 +383,21 @@ nnoremap <leader>vp :execute "tab sp" resolve(expand("~/.vim/bundle/mbpython/ftp
 "reload vimrc
 nnoremap <leader>vv :source ~/.vim/vimrc<CR>
 "edit snippets
-nnoremap <leader>vs :tab sp <bar> UltiSnipsEdit<CR>
+nnoremap <leader>vs :tab sp <bar> UltiSnipsEdit!<CR>
 
 "Redo the syntax highlighting
 nnoremap <leader>U :syntax sync fromstart<cr>:redraw!<cr>
 
+
 "Replace current search term globally (or in selection)
-nnoremap <leader>r :%s;;;g<left><left>
-xnoremap <leader>r :s;;;g<left><left>
+"Using ctrl-underscore as the separator as it seems less likely to conflict
+"with a character you'd want to put in the replacement text
+nnoremap <leader>r :%sg<left><left>
+xnoremap <leader>r :sg<left><left>
+"When searching for a term, you can hit ctrl-s to switch to replacement mode
+"This will not work if your terminal gobbles ctrl-s but I'm hard-pressed to
+"find a safer sequence to map
+cnoremap <c-s> <cr>:%sg<left><left>
 
 "F2 toggles line numbers
 nnoremap <silent> <F2> :set number!<CR>
@@ -283,6 +423,19 @@ nnoremap <silent> <leader>d :call g:DiffToggle()<CR>
 "Space toggles folds
 nnoremap <Space> za
 
+"Advent of code helper: write input from clipboard to the input file
+nnoremap <F10> :tabnew<cr>V"+p:w! input<cr>:wq!<cr>
+map <F9> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+tnoremap <c-w> <c-\><c-n><c-w>
+tnoremap <F12> <c-\><c-n><c-w><c-w>
+"Ctrl-ArrowKeys = move between splits
+tnoremap <c-left> <c-\><c-n><c-w><left>
+tnoremap <c-right> <c-\><c-n><c-w><right>
+tnoremap <c-up> <c-\><c-n><c-w><up>
+tnoremap <c-down> <c-\><c-n><c-w><down>
 "Visual Mode */# from Scrooloose via Steve Losh {{{
 function! s:VSetSearch()
   let temp = @@
@@ -293,6 +446,11 @@ endfunction
 
 vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR><c-o>
 vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR><c-o>
+"}}}
+"Abbreviations {{{
+iabbrev impl implementation
+iabbrev secc security
+cabbrev jj r !grep jj /usr/share/dict/words
 "}}}
 "}}}
 "Commands {{{
@@ -305,7 +463,7 @@ command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
 	 	\ | wincmd p | diffthis
 
 "Demo: load my plugins to demo them
-command! Demo cd ~/repos/crashcart/plugin | so unstack.vim | so ../../accordion/plugin/accordion.vim | e sample_trace.txt | exe 'Ack! remap' | wincmd p
+command! Demo cd ~/repos/crashcart/plugin | so unstack.vim | so ../../accordion/plugin/accordion.vim | e sample_trace.txt | exe 'Rg! remap' | wincmd p
 
 
 "SetQfList: copy the loclist to the qflist
@@ -317,6 +475,8 @@ command! AnsibleDoc tab sp | let ztmp=@z | exe 'norm "zyiw' | vnew | exe 'Scratc
 "Presentation: Settings for a presentation
 command! Presentation highlight Hidden ctermfg=black ctermbg=none | syntax match Hidden /{{{/ | syntax match Hidden /}}}/ | exe 'nnore <s-down> zczjzozt' | exe 'nnore <s-up> zczk%zozt'
 
+"Reveal: Show only the first line of a file and remap space to revealing the other lines
+command! Reveal silent only | botright new | wincmd k | 999 wincmd - | nnoremap <lt>space> <lt>c-w>+
 "Pylog {{{
 function! g:PylogShortcuts()
 	nnoremap <leader><down> :call DoStep("ov")<CR>
@@ -335,6 +495,7 @@ function! g:HighlightLine()
 	execute 'sign place' g:highlightLineSignId 'line='.line(".") 'name=hl' 'file='.expand("%")
 	let g:highlightLineSignId += 1
 endfunction
+command! HighlightLine call g:HighlightLine()
 "}}}
 "}}}
 " vim:foldmethod=marker

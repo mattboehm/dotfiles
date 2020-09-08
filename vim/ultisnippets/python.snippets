@@ -4,7 +4,7 @@ endsnippet
 
 snippet im "ifmain" b
 def main():
-	${VISUAL}$1
+	$1
 
 if __name__ == "__main__":
 	main()
@@ -20,6 +20,13 @@ if $1:
 	${VISUAL}
 endsnippet
 
+snippet ie "if/else" b
+if $1:
+	${VISUAL}
+else:
+	$2
+endsnippet
+
 snippet ip "import print" b
 from __future__ import print_function
 endsnippet
@@ -28,7 +35,41 @@ snippet p "print" b
 print($1)
 endsnippet
 
-snippet ff "for loop" b
+snippet pp "property" b
+@property
+def $1(self):
+	${2:return self._$1}
+
+@$1.setter
+def $1(self, value):
+	${3:self._$1 = value}
+endsnippet
+
+snippet fx "for loop" b
 for x in range(${1}):
+	${VISUAL}
+endsnippet
+
+snippet fy "for loop" b
+for y in range(${1}):
+	${VISUAL}
+endsnippet
+
+snippet fc "for loop cs" b
+for w in cs(${1}):
+	${VISUAL}
+endsnippet
+
+snippet fl "for loop ls" b
+for l in ls(${1}):
+	${VISUAL}
+endsnippet
+
+snippet xf "x for" b
+[${1:x} for x in ${2}]
+endsnippet
+
+snippet fi "for loop" b
+for $1 in $2:
 	${VISUAL}
 endsnippet
