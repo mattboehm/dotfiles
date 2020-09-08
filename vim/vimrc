@@ -270,6 +270,11 @@ augroup vimwiki_custom
 	autocmd BufWritePost *.wiki silent Vimwiki2HTML
 augroup end
 "}}}
+"Commands for resizing/creating splits based on size of selection
+Plug 'wellle/visual-split.vim'
+"Show all the indentation ancestors of the current line in a popup menu above
+"the window
+Plug 'wellle/context.vim'
 "Kite settings {{{
 let g:kite_tab_complete=1
 "}}}
